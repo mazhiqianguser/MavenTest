@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>用户管理</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui-v2.3.0-rc1/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../style/index.css" media="all" id="index_css"/>
+	<link rel="stylesheet" href="../style/reo.css" media="all" id="reo_css" />
+	<!--link rel="stylesheet" href="../style/index_one.css" media="all" />
+   <link rel="stylesheet" href="../style/reo_one.css" media="all" />-->
+	<link rel="stylesheet" href="../css/global.css" media="all">
+	<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+
+<form class="layui-form personInfor" action="" id="form_bnt">
+	<div class="layui-form-item" style="margin-top: 30px; ">
+		<label class="layui-form-label">角色</label>
+		<div class="layui-input-block">
+			<select id="role" name="interest " lay-filter="aihao" class="layui_input layui-disabled" disabled>
+			</select>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">用户名</label>
+		<div class="layui-input-block">
+			<input id="user_name" type="text" name="user_name" lay-verify="required" autocomplete="off"
+				   class="layui-input layui_input layui-disabled" disabled>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">密码</label>
+		<div class="layui-input-block">
+			<input id="password" type="password" name="password" lay-verify="required" autocomplete="off"
+				   class="layui-input layui_input layui-disabled" disabled>
+		</div>
+	</div>
+	<!--<div class="layui-form-item">
+      <label class="layui-form-label">确认密码</label>
+      <div class="layui-input-block">
+        <input id="Ypassword" type="password" name="required" lay-verify="required" autocomplete="off"  class="layui-input layui_input">
+      </div>
+    </div>-->
+	<div class="layui-form-item">
+		<label class="layui-form-label">姓名</label>
+		<div class="layui-input-block">
+			<input type="text" id="name" name="name" lay-verify="required" autocomplete="off"
+				   class="layui-input layui_input ">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">手机号</label>
+		<div class="layui-input-block">
+			<input type="tel" id="phone" name="phone" lay-verify="required|phone" autocomplete="off"
+				   class="layui-input layui_input" >
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">邮箱</label>
+		<div class="layui-input-block">
+			<input type="email" id="email" name="email" lay-verify="email" autocomplete="off"
+				   class="layui-input layui_input">
+		</div>
+	</div>
+	<div class="layui-form-item btn_two" style="margin-top: 45px;  ">
+      <div class="layui-input-block" style="margin-top: 15px;">
+        <button  class="layui-btn  yes_btn" lay-submit lay-filter="demo1">保存</button>
+        <button type="reset" class="layui-btn layui-btn-primary close no_btn" >取消</button>
+      </div>
+    </div>
+</form>
+<script type="text/javascript" src="../layui-v2.3.0-rc1/layui/layui.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="" src="../js/layer_windows.js"></script>
+<script type="" src="../js/personalCenter/personInfor.js"></script>
+
+<script type="text/html" id="checked">
+    <div class="layui-form">
+        <input type="checkbox" value="{{d.id}}" lay-skin="switch" lay-filter='filter'>
+    </div>
+</script>
+<script type="text/html" id="indexTpl">
+	{{d.LAY_TABLE_INDEX+1}}
+</script>
+</body>
+
+</html>

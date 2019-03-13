@@ -1,0 +1,218 @@
+2<html>
+<head>
+<title>JQuery-TreeGrid</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link type="text/css" rel="stylesheet" href="jq-treegrid.css"/>
+	<script type="text/javascript" src="jquery-1.11.1-min.js"></script>
+	<script type="text/javascript" src="jq-treegrid.js"></script>
+</head>
+
+<body>
+	<!-- table容器 -->
+	<div id="dataTables-organization_wrapper"></div>
+
+	<script type="text/javascript">
+		/**
+		 * [config treegrid配置项对象]
+		 * @type {Object}
+		 */
+		var config = {
+			id: "datatables-organization",//table的id
+			width: "100%",
+			renderTo: "dataTables-organization_wrapper",//渲染table的容器对象id
+			headerAlign: "left",
+			// headerHeight: "38",
+			dataAlign: "left",
+			indentation: "20",//缩进
+			folderOpenIcon: "img/collapse.png",//展开的图标
+			folderCloseIcon: "img/expand.png",//关闭的图标
+			// defaultLeafIcon: "img/branch_icon.png",//叶子节点的图标
+			hoverRowBackground: "true",//鼠标悬停是否显示背景色
+			folderColumnIndex: "1",//层次缩进
+			itemClick: "itemClickEvent",//点击一行的事件处理函数
+			columns:[//列名,表头和数据的对齐方式，宽度（可以是数值，也可以是百分比），自定义处理函数等
+				{headerText: "<input type='checkbox' id='checkAll'/>", headerAlign: "left", dataAlign: "left", width: "10", handler: "customCheckBox"},
+				{headerText: "组织别名", dataField: "alias", headerAlign: "left", handler: "customOrgName",width:""},
+				{headerText: "组织全名", dataField: "fullName", headerAlign: "left", dataAlign: "left", width: ""},
+//				{headerText: "联系人", dataField: "contactMan", headerAlign: "left", dataAlign: "left", width: ""},
+//				{headerText: "联系电话", dataField: "contactTel",headerAlign: "left", dataAlign: "left", width: ""},
+				{headerText: "终端数量", dataField: "terminalNum",headerAlign: "left", dataAlign: "left", width: ""},
+				{headerText: "操作", headerAlign: "left", dataAlign: "left", width: "", handler: "customLook"}
+			],
+			data:[//ajax后台请求json数据
+				{alias: "腾铭汽车总部-0", fullName: "腾铭汽车总部", contactMan: "韩明国", contactTel: "18783226594", terminalNum: "100", children:[
+					{alias: "滕铭汽车一部-1", fullName: "滕铭汽车一部", contactMan: "姜超", contactTel: "13688310583", terminalNum: "5", children: [
+						{alias: "滕铭汽车一部北京-1-1"},
+						{alias: "滕铭汽车一部新疆-1-2"},
+						{alias: "滕铭汽车一部福建-1-3"}
+					]},
+					{alias: "滕铭汽车二部-1", fullName: "滕铭汽车二部", contactMan: "李思远", contactTel: "17812563210", terminalNum: "45",children:[
+						{alias: "滕铭汽车二部天津-1-1"},
+						{alias: "滕铭汽车二部河北-1-2"},
+						{alias: "滕铭汽车二部合肥-1-3", children: [
+							{alias: "滕铭汽车二部合肥-1-3-1", children: [
+								{alias: "滕铭汽车二部合肥-1-3-1-1", children: [
+									{alias: "滕铭汽车二部合肥-1-3-1-1-1", children: [
+										{alias: "滕铭汽车二部合肥-1-3-1-1-1-1", children: [
+											{alias: "滕铭汽车二部合肥-1-3-1-1-1-1-1", children: [
+												{alias: "滕铭汽车二部合肥-1-3-1-1-1-1-1-1", children: [
+													{alias: "滕铭汽车二部合肥-1-3-1-1-1-1-1-1-1"}
+												]}
+											]}
+										]}
+									]}
+								]},
+								{alias: "滕铭汽车二部合肥-1-3-2"},
+								{alias: "滕铭汽车二部合肥-1-3-3"}
+							]},
+							{alias: "滕铭汽车二部合肥-1-3-2"},
+							{alias: "滕铭汽车二部合肥-1-3-3"},
+							{alias: "滕铭汽车二部合肥-1-3-4"}
+						]}
+					]},
+					{alias: "滕铭汽车三部-1"}
+				]},
+				{alias: "大众汽车总部-0", fullName: "大众汽车总部", contactMan: "李四", contactTel: "13588312654", terminalNum: "33"}
+			]
+		};
+
+		/**
+		 * [itemClickEvent 单击数据行后触发该事件]
+		 * @param  {[String]} id    [行的id]
+		 * @param  {[String]} index [行的索引]
+		 * @param  {[Object]} data  [json格式的行数据对象]
+		 */
+		function itemClickEvent(id, index, data){
+//			 jQuery("#currentRow").val(id + ", " + index + ", " + TreeGrid.jsonToStr(data));
+			console.log(id + ", " + index + ", " + TreeGrid.jsonToStr(data));
+		};
+		
+		/**
+		 * [customCheckBox 通过指定的方法来自定义栏数据]
+		 * @param  {[Object]} row 
+		 * @param  {[Object]} col 
+		 */
+		function customCheckBox(row, col){
+			return "<input type='checkbox' name='orgIds'/>";
+		};
+
+		/**
+		 * [customOrgName 获取列名]
+		 * @param  {[Object]} row 
+		 * @param  {[Object]} col 
+		 */
+		function customOrgName(row, col){
+			var name = row[col.dataField] || "";
+			return name;
+		};
+
+		/**
+		 * [customLook 根据权限来显示操作控件的个数]
+		 * @param  {[Object]} row [
+		 * @param  {[Object]} col 
+		 */
+		function customLook(row, col){
+			return "<input type='button' class='btn btn-info' value='查看'/>&nbsp;<input type='button' class='btn btn-warning' value='修改'/>&nbsp;<input type='button' class='btn btn-primary' value='添加子组织'/>&nbsp;<input type='button' class='btn btn-danger'value='删除'/>";
+		};
+
+		//创建一个组件对象
+		var treeGrid = new TreeGrid(config);
+		treeGrid.show();
+		
+		/**
+		 * [expandAll 展开、关闭所有节点]
+		 * @param  {Boolean} isOpen [isOpen=Y表示展开，isOpen=N表示关闭]
+		 */
+		function expandAll(isOpen){
+			treeGrid.expandAll(isOpen);
+			
+		};
+		
+		/**
+		 * [selectedItem 取得当前选中的行，方法返回TreeGridItem对象]
+		 */
+		function selectedItem(){
+			var treeGridItem = treeGrid.getSelectedItem();
+			if(treeGridItem!=null){
+				//获取数据行属性值
+				//console(treeGridItem.id + ", " + treeGridItem.index + ", " + treeGridItem.data.name);
+				
+				//获取父数据行
+				var parent = treeGridItem.getParent();
+				if(parent!=null){
+					console.log(parent.data.name);
+				}
+				
+				//获取子数据行集
+				var children = treeGridItem.getChildren();
+				if(children!=null && children.length>0){
+					console.log(children[0].data.name);
+				}
+			}
+		};
+
+		/**
+		 * 展开、收起所有节点
+		 */
+
+		// jQuery("#checkAll").click(function(e){
+		// 	var isChk = jQuery(this).prop("checked");
+		// 	if(isChk == true){
+		// 		expandAll('N');
+		// 	}else{
+		// 		expandAll('Y');
+		// 	}
+		// })
+		
+		// 单选，并将单选绑定到外面的td标签上。当选中的是父节点时，相应子节点执行同样的操作
+		var chkParent = $("input[name='orgIds']").parent();
+		chkParent.click(function(e){
+            selectedItem()
+			var ch = $(this).find('input').prop('checked');
+			if(ch == false){
+				$(this).find('input').prop('checked',true);
+				if($("input[name='orgIds']").length == $("input[name='orgIds']:checked").length){
+					$("#checkAll").prop('checked',true);
+				}else{
+					$("#checkAll").prop('checked',false);
+				}
+			}else{
+				$(this).find('input').prop('checked',false);
+				if($("input[name='orgIds']").length == $("input[name='orgIds']:checked").length){
+					$("#checkAllt").prop('checked',true);
+				}else{
+					$("#checkAll").prop('checked',false);
+				}
+			}
+		});
+		$("input[name='orgIds']").click(function(e){
+			e.stopPropagation();
+			if($("input[name='orgIds']").length == $("input[name='orgIds']:checked").length){
+				$("#checkAll").prop("checked",true);
+			}else{
+				$("#checkAll").prop("checked",false);
+			}
+		});
+		
+
+		// 全选，并将全选绑定到外面的td标签上
+		var chkAllParent = $("#checkAll").parent();
+		chkAllParent.click(function(e){;
+			var ch = $(this).find('input').prop('checked'); 
+			if(ch == false){
+				$(this).find('input').prop('checked',true);
+				$("input[name='orgIds']").prop("checked",true);
+			}else{
+				$(this).find('input').prop('checked',false);
+				$("input[name='orgIds']").prop("checked",false);
+			}
+		});
+		$("#checkAll").click(function(e){
+			e.stopPropagation();
+			$("input[name='orgIds']").prop("checked",this.checked);
+		});
+	</script>
+
+</body>
+</html>

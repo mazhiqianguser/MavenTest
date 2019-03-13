@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--
+* @Author: defaultFish
+* @Date:   2017-12-12 00:00:00
+* +
+* | siteCMS [ siteCMS网站内容管理系统 ]
+* | Copyright (c) 2017 https://www.sitecms.cn All rights reserved.
+* | Licensed ( https://www.sitecms.cn/licenses/ )
+* | Author: defaultfish <defaultfish@qq.com>
+* +
+-->
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="layui-v2.3.0-rc1/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="style/index.css" media="all" id="index_css"/>
+	<!--<link rel="stylesheet" href="style/index_one.css" media="all" />-->
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/animate.css">
+    <link rel="stylesheet" href="./css/sitecms.css">
+	
+    <!-- 让IE8/9支持媒体查询 -->
+	<!--[if lt IE 9]>
+		<script src="./js/html5shiv.min.js"></script>
+		<script src="./js/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+<div class="layui-layout-admin sc_login">
+        <div class="sc_login_content">
+            <div class="sc_login_right">
+                <form method="post" id="form" class="layui-form">
+                    <dl>
+                        <dt>手机金盾管理云平台</dt>
+                        <P class="nameP">账号</P>
+                        <dd>
+                            <label for="username">
+                                <div class="layui-input-inline">
+                                    <input type="text" name="username" autocomplete="off" placeholder="请输入用户名" datatype="s2-16" errormsg="用户名至少2个字符!" nullmsg="请输入用户名!" class="layui-input" />
+                                </div>
+                            </label>
+                        </dd>
+                        <p class="nameP">密码</P>
+                        <dd>
+                            <label for="password">
+                                <div class="layui-input-inline">
+                                    <input type="password" name="password" autocomplete="off" placeholder="请输入密码" datatype="*6-18" errormsg="密码范围在6~18位之间!" nullmsg="请输入密码!" class="layui-input" />
+                                </div>
+                            </label>
+                        </dd>
+                        <p class="nameP">验证码</P>
+                        <dd>
+                        	<label for="username">
+                                <div class="layui-input-inline" style="width: 340px;" id="inliChe">
+                                    <input type="text" name="username" autocomplete="off" placeholder="请输入验证码" datatype="s4-16" errormsg="验证码至少4个字符!" nullmsg="请输入验证码!" class="layui-input" style="width: 260px;float: left;" />
+                                    <img src="images/1_5.jpg" class="img_tie" title="更换图片"/>
+                                </div>
+                            </label>
+                            <!--<label for="username">
+                                <div class="layui-input-inline" style="width: 340px;">
+                                    <input type="text" name="username" autocomplete="off" placeholder="请输入验证码" nullmsg="请输入验证码!" class="layui-input" style="width: 260px;float: left;"/>
+                                    <img src="images/1_5.jpg"  class="img_tie" title="更换图片"/>
+                                </div>
+                            </label>-->
+                        </dd>
+                        <dd>
+                            <p>
+                                <button class="layui-btn">登 录</button>
+                            </p>
+                        </dd>
+                    </dl>
+                </form>
+            </div>
+        </div>
+</div>
+	<script type="text/javascript" src="layui-v2.3.0-rc1/layui/layui.js"></script>
+	<script type="" src="js/jquery/jquery-3.3.1.min.js"></script>
+	<script src="js/Echarts/echarts-all.js"></script>	
+	<script src="js/validform.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

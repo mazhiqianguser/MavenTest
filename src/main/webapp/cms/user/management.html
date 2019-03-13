@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>角色管理</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui-v2.3.0-rc1/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="../style/index.css" media="all" id="index_css"/>
+	<link rel="stylesheet" href="../style/reo.css" media="all" id="reo_css"/>
+	<!--<link rel="stylesheet" href="../style/index_one.css" media="all" />
+   <link rel="stylesheet" href="../style/reo_one.css" media="all" />-->
+	<link rel="stylesheet" href="../css/global.css" media="all">
+	<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../js/TreeGrid/jq-treegrid.css"/>
+</head>
+<body>
+<!--<div style="text-align: center;">
+  <div class="layui-inline">
+   </div>
+</div>-->
+<div class="form_lay">
+	<div >
+		<div class="leftNav">
+			<p>
+				<a>所在位置：</a>
+				<span>系统管理</span>
+				<samp> > </samp>
+				<span>角色管理</span>
+			</p>
+		</div>
+		<button class="layui-btn btn_rin" onclick="add()"><i class="layui-icon layui-icon-add-1" style="font-size: 15px;padding-right: 0px;"></i>新 增</button>
+	</div>
+</div>
+
+<div class="bock">
+	<!--<div style="width: 100%;height: 100%;background: rgba(0,0,0,.6);"></div>-->
+	<table id="idTest" lay-filter="demo"></table>
+</div>
+<!-- table容器 -->
+<div id="dataTables-organization_wrapper" style="display: none;padding: 30px 20px;">
+
+</div>
+<script type="text/javascript" src="../layui-v2.3.0-rc1/layui/layui.js"></script>
+<script type="" src="../js/layer_windows.js"></script>
+<script type="" src="../js/user/management.js"></script>
+<script type="" src="../js/TreeGrid/jq-treegrid.js"></script>
+<script type="" src="../js/TreeGrid/jquery-1.11.1-min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/html" id="barDemo">
+	<i class="layui-icon layui-icon-user jurisdiction"  lay-event="jurisdiction" style="margin-right: 10px;cursor: pointer;" title="权限"></i>
+	<i class="layui-icon layui-icon-survey compile" lay-event="compile" style="margin-right: 10px;cursor: pointer;" title="编辑"  ></i>
+	<i class="layui-icon layui-icon-delete" lay-event="delete" style="margin-right: 10px;cursor: pointer;font-size: 18px;" title="删除" ></i>
+</script>
+<script type="text/html" id="indexTpl">
+	{{d.LAY_TABLE_INDEX+1}}
+</script>
+<!-- table容器 -->
+</body>
+</html>

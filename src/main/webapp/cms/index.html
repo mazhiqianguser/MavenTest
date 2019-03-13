@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>手机金盾管理云平台</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="layui-v2.3.0-rc1/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="style/index.css" media="all" id="index_css"/>
+	<!--<link rel="stylesheet" href="style/index_one.css" media="all" />-->
+	<link rel="stylesheet" href="css/global.css" media="all">
+	<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+	<div class="layui-header back_blue"style="position: relative;">
+		<ul class="layui-nav " style="float: left;height: 60px;">
+			<li class="layui-nav-item add"><a href="" style="padding-left: 0;"><i class="layui-icon layui-icon-spread-left" style="font-size: 12px; color: #fff; margin-right: 5px;"></i>菜单</a></li>
+			<li class="layui-nav-item">
+				<a href="javascript:;">系统管理</a>
+				<ul class="layui-nav-child">
+					<li class="site_active" data-title="权限管理"  data-url="user/jurisdiction.html" data-id="691"><a >权限管理</a></li>
+					<li class="site_active" data-title="角色管理" data-url="user/management.html" data-id="692"><a>角色管理</a></li>
+					<li class="site_active" data-title="用户管理" data-url="user/userList.html" data-id="711"><a>用户管理</a></dd>
+					<li class="site_active" data-title="部门管理" data-url="user/department.html" data-id="191"><a>部门管理</a></dd>
+				</ul>
+			</li>
+			<li class="layui-nav-item">
+				<a href="javascript:;">示例模块</a>
+				<ul class="layui-nav-child">
+					<li class="site_active" data-title="示例一"  data-url="demo/demoList.html" data-id="710"><a >示例一</a></li>
+				</ul>
+			</li>
+		</ul>
+		<div class="layui_auto">
+			手机金盾管理云平台
+		</div>
+		<ul class="layui-nav " style="float: right;height: 60px;">
+			<!--<li class="layui-nav-item"><a href="">管理员</a></li>-->
+			<!--<select id="select" name="select " lay-filter="aihao" class="layui_input" style="width: 100%;margin-top: 15px;    border: none;">
+                       <option value="" >更换主题</option>
+                    <option value="0" >黑色</option>
+                    <option value="1" >蓝色</option>
+                </select>-->
+			<li class="layui-nav-item" >
+				<a href="javascript:;">
+					<span>欢迎：</span>
+					<span>上海欣方一级管理员</span>
+				</a>
+				<!--<ul class="layui-nav-child" id="select">
+                    <li value="1"><a>蓝色</a></li>
+                    <li value="0"><a>黑色</a></li>
+                </ul>-->
+				<ul class="layui-nav-child" style="left:auto;right: 0;">
+					<li  class="site_active" data-title="个人中心"  data-url="personalCenter/personInfor.html" data-id="7101"><a>个人中心</a></li>
+					<li  class="site_active" data-title="修改密码"  data-url="personalCenter/password.html" data-id="7111"><a>修改密码</a></li>
+					<li><a>设置</a></li>
+					<li class="skin"><a>更换皮肤</a></li>
+					<li><a>退出登录</a></li>
+				</ul>
+			</li>
+
+		</ul>
+
+		<div id="admin-navbar-side" class="admin-navbar-side layui-nav-bar" ></div>
+		<div id="admin-navbar-side1" class="admin-navbar-side1 layui-nav-bar" ></div>
+		<div id="admin-navbar-side2" class="admin-navbar-side2 layui-nav-bar" ></div>
+	</div>
+	<!--<ul class="layui-tab-title">
+                    <li class="layui-this">
+                        <i class="fa fa-dashboard" aria-hidden="true"></i>
+                        <cite>控制面板</cite>
+                    </li>
+                </ul>-->
+
+	<div class="layui-body" style="bottom: 0;left: 0; width: 100%;" id="top_tabs_box">
+		<div class="layui-tab admin-nav-card layui-tab-brief" lay-filter="demo" lay-allowclose="true" id="top_tabs" >
+			<!--<span class="layui-breadcrumb span_ul" lay-separator="|">
+              <a href="">金盾数据监控</a>
+              <a href="">报警数据分析</a>
+              <a href="">申诉数据分析</a>
+              <a href="">查询数据分析</a>
+            </span>-->
+			<div class="bth" style="float:left;">
+				<div class="layui-icon layui-icon-left ring" id="left_bth" style="float: left;"></div>
+			</div>
+
+			<ul class="layui-tab-title title_ul" style="left: 0px;">
+				<li class="layui-this" style="display: none;">
+					<cite></cite>
+				</li>
+			</ul>
+			<div class="bth" >
+				<div class="layui-icon layui-icon-right ring" id="ring_bth" style="float: right;"></div>
+			</div>
+			<ul class="layui-nav closeBox" style="border-left: 1px solid #1AA094;display: none;">
+				<li class="layui-nav-item" style="line-height: 40px;">
+					<a href="javascript:;" style="color: #333;"><i class="layui-icon caozuo">&#xe643;</i> 页面操作</a>
+					<dl class="layui-nav-child">
+						<dd><a href="javascript:;" class="refresh refreshThis"><i class="layui-icon">&#x1002;</i> 刷新当前</a></dd>
+						<dd><a href="javascript:;" class="closePageOther"><i class="seraph icon-prohibit"></i> 关闭其他</a></dd>
+						<dd><a href="javascript:;" class="closePageAll"><i class="seraph icon-guanbi"></i> 关闭全部</a></dd>
+					</dl>
+				</li>
+			</ul>
+			<div class="layui-tab-content" style="min-height: 150px; padding: 5px 0 0 0;">
+				<div class="layui-tab-item layui-show">
+					<iframe  style="width: 100%;height: 100%;"></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<input type="hidden" id="num" />
+<form class="layui-form" action="" id="form_bnt" style="display: none;">
+	<div class="layui-form-item " style="margin:0; margin-top: 15px;">
+		<label class="layui-form-label">更换皮肤</label>
+		<div class="layui-input-block">
+			<input type="radio" name="skin" value="0" title="蓝色" checked="">
+			<input type="radio" name="skin" value="1" title="黑色">
+			<!--<input type="radio" name="sex" value="禁" title="禁用" disabled="">-->
+		</div>
+	</div>
+	<div class="layui-form-item btn_two" style="text-align: center;">
+		<div class="layui-input-block" style="margin-top: 15px;    margin-left: 0;">
+			<button type="reset" class="layui-btn layui-btn-primary close" style="background: rgba(0,0,0,.0);border: 1px solid #5bc1fe;color: #5bc1fe;" >取消</button>
+			<button type="reset"  class="layui-btn close skin_yes" style="background: rgba(0,0,0,.0);border: 1px solid #fff;color: #fff;" >保存</button>
+		</div>
+	</div>
+</form>
+<script type="text/javascript" src="layui-v2.3.0-rc1/layui/layui.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/nav.js"></script>
+
+</body>
+</html>

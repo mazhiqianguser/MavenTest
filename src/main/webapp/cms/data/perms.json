@@ -1,0 +1,68 @@
+[
+    {
+        "id": "290",
+        "path": "1",
+        "parentId": "0",
+        "title": "首页",
+        "icon": "&#xe67b;",
+        "href": "main.html"
+    },
+    {
+        "id": "68",
+        "path": "1",
+        "parentId": "0",
+        "title": "系统管理",
+        "icon": "&#xe62c;"
+    },
+        {
+            "id": "691",
+            "path": "1",
+            "parentId": "68",
+            "title": "权限管理",
+            "icon": "&#xe63a;",
+            "href": "user/jurisdiction.html",
+            "children": []
+        },
+        {
+            "id": "692",
+            "path": "1",
+            "parentId": "68",
+            "title": "角色管理",
+            "icon": "&#xe63a;",
+            "href": "user/management.html",
+            "children": []
+        },
+        {
+            "id": "711",
+            "path": "1",
+            "parentId": "68",
+            "title": "用户管理",
+            "icon": "&#xe643;",
+            "href": "user/userList.html",
+            "children": []
+        },
+        {
+            "id": "191",
+            "path": "1",
+            "parentId": "68",
+            "title": "部门管理",
+            "icon": "&#xe62a;",
+            "href": "user/department.html",
+            "children": []
+        },
+    {
+        "id": "333",
+        "path": "1",
+        "parentId": "0",
+        "title": "示例模块",
+        "icon": "&#xe656;"
+    },{
+            "id": "710",
+            "path": "1",
+            "parentId": "333",
+            "title": "示例一",
+            "icon": "&#xe63a;",
+            "href": "demo/demoList.html",
+            "children": []
+     }
+]
