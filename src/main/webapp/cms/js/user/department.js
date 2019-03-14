@@ -84,7 +84,7 @@
 // 				btn2:function(){
 //
 // 				}
-// 			})
+// 			});
 // 			$('body').delegate('#yes_btn', 'click', function(e){
 // 				alert( $("#department_name").val() )
 // 				alert(li_id)
@@ -210,11 +210,10 @@ layui.config({
     })
     $("#dataTables-organization_wrapper").css({
         "width":w-10+"px",
-        "height":h-10+"px"
+        "height":h-70+"px"
     })
     $("#dataTables").css({
-        "max-height":h-50+"px",
-        "overflow-x": "scroll"
+        "max-height":h-60+"px",
     })
     //菜单管理编辑
     $('body').delegate('.compile_form', 'click', function(e){
@@ -224,18 +223,27 @@ layui.config({
     $('body').delegate('.add_uer', 'click', function(e){
         e.stopPropagation();
         $("#pervNav").attr("disabled",false);
+       $("#namePo").val("");
+       $("#dept_code").val("");
+         $("#pervNav").val("");
+        $("#pervNav").attr("dataId","");
         layer.open({
             type: 1,
             title:"新增部门",
-            area: ['300px', '360px'],
+            area: ['400px', '360px'],
             btn: ['确定', '取消'],
             content: $("#form_bnt"),
             yes:function(){
                 var namePo = $("#namePo").val();
+                var dept_code = $("#dept_code").val();
                 var pervNav = $("#pervNav").val();
                 var pervNavId = $("#pervNav").attr("dataId");
                 if( namePo == '' || namePo == null||  namePo == undefined){
                     layer.msg("你当前还没有输入部门名称！请输入！");
+                    return false
+                }
+                if( dept_code == '' || dept_code == null||  dept_code == undefined){
+                    layer.msg("你当前还没有输入部门编号！请输入！");
                     return false
                 }
                 //alert("上级部门名称："+ pervNav + " 上级部门ID："+pervNavId+" 部门名称："+namePo);
@@ -246,20 +254,22 @@ layui.config({
                     type:'post',
                     data:JSON.stringify({
                         parent_id:pervNavId,
-                        dept_name:namePo
+                        dept_name:namePo,
+                        dept_code:dept_code
                     }),
                     cache:false,
                     dataType:'json',
                     contentType: 'application/json;charset=UTF-8',
                     success:function(result) {
                         $("#namePo").val("");
+                        $("#dept_code").val("");
                         $("#pervNav").val("");
                         $("#pervNav").attr("dataId","");
-                        if(result.code == "200"){
-                            layer.msg('操作成功', {icon: 1});
+                        if(result.code ==200){
+                            layer.msg(result.desc, {icon: 1});
                             location.reload();
                         }else{
-                            layer.msg('操作失败', {icon: 2});
+                            layer.msg(result.desc, {icon: 2});
                         }
                     },
                     error : function() {
@@ -280,6 +290,7 @@ layui.config({
             },
             btn2:function(){
                 $("#namePo").val("");
+                $("#dept_code").val("");
                 $("#pervNav").val("");
                 $("#pervNav").attr("dataId","");
                 layer.closeAll();
@@ -289,7 +300,15 @@ layui.config({
     //菜单展开操作
     $('body').delegate('.unfold', 'click', function(e){
         e.stopPropagation();
-        expandAll("Y")
+        if( $(this).children(".unzk").text() == "展开" ){
+            expandAll("Y");
+            $(this).children(".unzk").text("折叠");
+            $(this).children(".layui-icon").attr("class","layui-icon layui-icon-up");
+        }else{
+            expandAll("N");
+            $(this).children(".unzk").text("展开");
+            $(this).children(".layui-icon").attr("class","layui-icon layui-icon-down");
+        }
     });
     //菜单收起操作
     $('body').delegate('.fold', 'click', function(e){
@@ -318,20 +337,18 @@ layui.config({
                 dataType: "json",
                 contentType: "application/json",
                 success: function (data) {
-                    if (data.code == "200") {
-                        layer.msg('删除成功');
-                        $(".layui-laypage-btn").click();
-                        location.reload();;
+                    if (data.code ==200) {
+                        layer.msg(data.desc);
+                        setTimeout( function () {
+                            location.reload();
+                        },2000);
                     } else {
-                        layer.msg('删除失败，请重试');
-                        layer.closeAll(); //关闭所有层
+                        layer.msg(data.desc);
                     }
                 }
             });
-            layer.closeAll(); //关闭所有层
-            $(".layui-laypage-btn").click();
         }, function(){
-            layer.msg('删除失败');
+            layer.msg('取消删除');
         });
     });
     $(".Icon").hover(function(){
@@ -386,20 +403,18 @@ function IconRemove(ID,the){
             dataType: "json",
             contentType: "application/json",
             success: function (data) {
-                if (data.data == "200") {
-                    layer.msg('删除成功');
-                    $(".layui-laypage-btn").click();
-                    location.reload();
+                if (data.code == 200) {
+                    layer.msg(data.desc);
+                    setTimeout( function () {
+                        location.reload();
+                    },2000);
                 } else {
-                    layer.msg('删除失败，请重试');
-                    layer.closeAll(); //关闭所有层
+                    layer.msg(data.desc);
                 }
             }
         });
-        layer.closeAll(); //关闭所有层
-        $(".layui-laypage-btn").click();
     }, function(){
-        layer.msg('删除失败');
+        layer.msg('取消删除');
     });
 }
 

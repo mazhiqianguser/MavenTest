@@ -8,7 +8,6 @@
     text-align: center;
     font-size: 22px;
     color: rgba(255,255,255,.8);
-    background: url(../images/icon_bck_1.png) no-repeat;
     background-size: 100%;
     margin: 0 auto;
     position: absolute;
@@ -19,10 +18,11 @@
 .admin-navbar-side{
 	width: 200px;
     position: absolute;
-    left: 20px;
-    top: 61px;
-    min-height: 350px;
+    /*left: 20px;*/
+    /*top: 61px;*/
+   	height: 350px;
 	background: rgba(0,0,0,.8)!important;
+	display: none;
     /*background: #081040;*/
 }
 .layui-nav-bar{
@@ -31,12 +31,27 @@
 .admin-navbar-side1{
 	width: 200px;
     position: absolute;
-    top: 61px;
-    left: 220px;
-    min-height: 350px;
+    /*top: 61px;*/
+    /*left: 220px;*/
+    height: 350px;
     /*background: #081040;*/
    background: rgba(0,0,0,.8)!important;
+	display: none;
         border-left: 1px solid #24adf3;
+}
+#title{
+    font-size: 22px;
+    color: rgb(255, 255, 255,.8);
+}
+.left_title{
+    width: 10%;
+    height: 30px;
+    margin-right: 10px;
+}
+.right_title{
+    width: 10%;
+    height: 30px;
+    margin-left: 10px;
 }
 .layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-nav-tree .layui-this, .layui-nav-tree .layui-this>a, .layui-nav-tree .layui-this>a:hover{
 	background: rgba(0,0,0,.0)!important;
@@ -48,12 +63,13 @@
 .admin-navbar-side2{
 	width: 200px;
     position: absolute;
-    top: 61px;
-    left: 420px;
-     min-height: 350px;
+    /*top: 61px;*/
+    /*left: 420px;*/
+    height: 350px;
      /*background: #081040;*/
     background: rgba(0,0,0,.8)!important;
      border-left: 1px solid #24adf3;
+	display: none;
 }
 .layui-nav-child{
 	z-index: 999;
@@ -199,7 +215,7 @@ select[lay-ignore] option{
 	border:1px solid rgba(255,255,255,.8)!important;
     color: rgba(255,255,255,.8);
     line-height: 24px;
-    margin: 8px 3px;
+    margin: 8px 2px;
     border-radius: 5px;
     padding: 0 5px;
     cursor: pointer;
@@ -534,7 +550,7 @@ html {
     background-color: rgba(36,174,244,.3)!important;
 }
 .layui-icon{
-	color: rgba(255,255,255,.8)!important;
+	color: rgba(255,255,255,.8);
 }
 .coin{
 	height: 40px;
@@ -655,6 +671,7 @@ input[type=number]::-webkit-outer-spin-button {
 .form_lay{
 	border-bottom: 1px solid rgba(255,255,255,.8);
 	margin-bottom: 10px;
+	height: 48px;
 } 
 .layui_inputO{
 	width: 97%;
@@ -735,4 +752,19 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .layui-layer-ico{
 	background: url(../images/iconBlack.png) no-repeat!important;
+}
+.site_active{
+	color: #fff!important;
+}
+.layui-form-item{
+	position: relative;
+}
+.slimScrollDiv{
+	display: none;
+}
+#leftNav > li{
+	margin-right: 30px;
+}
+#leftNav > li:nth-child(1){
+	margin-right: 10px;
 }

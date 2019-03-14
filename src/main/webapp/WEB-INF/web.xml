@@ -7,7 +7,7 @@
     <!-- spring容器  -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:resources/spring/applicationContext-*.xml</param-value>
+        <param-value>classpath:spring/applicationContext-*.xml</param-value>
     </context-param>
 
     <!-- log4j -->
@@ -58,14 +58,14 @@
         <!-- 指定spring配置文件的域 -->
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:resources/spring/springmvc.xml</param-value>
+            <param-value>classpath:spring/springmvc.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>springmvc</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
     <!-- error处理 -->
@@ -77,4 +77,8 @@
         <error-code>500</error-code>
         <location>/500.html</location>
     </error-page>-->
+    <welcome-file-list>
+        <welcome-file>cms/index.html</welcome-file>
+        <welcome-file>cms/login.html</welcome-file>
+    </welcome-file-list>
 </web-app>

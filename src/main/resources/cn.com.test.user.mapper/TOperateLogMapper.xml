@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.test.user.dao.TOperateLogDao">
+  <resultMap id="BaseResultMap" type="cn.com.test.user.entity.TOperateLog">
+    <id column="oplog_id" jdbcType="INTEGER" property="oplog_id" />
+    <result column="user_id" jdbcType="INTEGER" property="user_id" />
+    <result column="login_name" jdbcType="VARCHAR" property="login_name" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="op_ip" jdbcType="VARCHAR" property="op_ip" />
+    <result column="function_id" jdbcType="INTEGER" property="function_id" />
+    <result column="operate_type" jdbcType="INTEGER" property="operate_type" />
+    <result column="operate_content" jdbcType="VARCHAR" property="operate_content" />
+    <result column="operate_time" jdbcType="TIMESTAMP" property="operate_time" />
+      <result column="phone" jdbcType="VARCHAR" property="phone" />
+     <!-- <result column="resource_type" jdbcType="INTEGER" property="resource_type" />
+      <result column="resource_message" jdbcType="VARCHAR" property="resource_message" />-->
+    <association property="function_name" jdbcType="VARCHAR" column="function_id" select="queryFunctionName"></association>
+    <association property="operate_name" jdbcType="VARCHAR" column="operate_type" select="queryOperateType"></association>
+  </resultMap>
+  
+   <resultMap id="BaseResultMap2" type="cn.com.test.user.entity.Permission" >
+     <id column="perm_id" property="perm_id" jdbcType="INTEGER" />
+    <result column="parent_perm_id" property="parent_perm_id" jdbcType="INTEGER" />
+    <result column="perm_name" property="perm_name" jdbcType="VARCHAR" />
+    <result column="perm_action" property="perm_action" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="rule" property="rule" jdbcType="VARCHAR" />
+    <result column="perm_describe" property="perm_describe" jdbcType="VARCHAR" />
+    <result column="perm_status" property="perm_status" jdbcType="BIT" />
+    <result column="perm_type" property="perm_type" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="DOUBLE" />
+    <result column="create_time" property="create_time" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="update_time" jdbcType="TIMESTAMP" />
+    <result column="perm_level" property="perm_level" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="queryFunctionName" parameterType="java.lang.Integer" resultType="java.lang.String">
+  	 select perm_name from t_permission where perm_id = #{function_id,jdbcType=INTEGER}
+  </select>
+   <select id="queryOperateType" parameterType="java.lang.Integer" resultType="java.lang.String">
+  	 select perm_name from t_permission where perm_id= #{operate_type,jdbcType=INTEGER}
+  </select>
+   <select id="queryFunctionId" parameterType="java.lang.String" resultType="java.lang.Integer">
+  	 select perm_id from t_permission where perm_name = #{operate_type,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <sql id="Base_Column_List">
+    oplog_id, user_id, login_name, username, op_ip, function_id, operate_type, operate_content, 
+    operate_time,phone,resource_type,resource_message
+  </sql>
+  <sql id="Base_Column_List2" >
+    perm_id, parent_perm_id, perm_name, perm_action, icon, rule, perm_describe, perm_status, 
+    perm_type, sort, create_time, update_time, perm_level
+  </sql>
+  
+  <!--条件查询-->
+    <select id="getQueryAllLogs"  parameterType="cn.com.test.user.page.PageHelper" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from t_operatelog where 1=1
+        /*用户名*/
+        <if test="object.login_name != null and object.login_name !='' ">
+            and login_name = #{object.login_name,jdbcType=VARCHAR}
+        </if>
+        /*手机*/
+        <if test="object.phone != null and object.phone != '' ">
+            and phone = #{object.phone,jdbcType=VARCHAR}
+        </if>
+        /*操作类型*/
+        <if test="object.operate_type != null and object.operate_type != '' ">
+            and operate_type = #{object.operate_type,jdbcType=INTEGER}
+        </if>
+        /*操作时间*/
+        <if test="object.start_time != null and object.start_time != '' ">
+            and operate_time  &gt;= #{object.start_time,jdbcType=TIMESTAMP}
+        </if>
+        <if test="object.end_time != null and object.end_time != '' ">
+            and operate_time &lt;= #{object.end_time,jdbcType=TIMESTAMP}
+        </if>
+        order by operate_time desc
+        <if test ="page.isLimit">
+            limit #{page.startSize,jdbcType=INTEGER},#{page.pageSize,jdbcType=INTEGER};
+        </if>
+    </select>
+  <!-- 按条件(分页)查询 -->
+  <select id="queryLogs"  resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_operatelog where 1=1
+      order by operate_time desc
+      limit #{start},#{limit}
+  </select>
+  
+  <!-- 查询记录数量 -->
+  <select id="getTotal" parameterType="cn.com.test.user.entity.TOperateLog" resultType="java.lang.Integer">
+    select count(oplog_id) from t_operatelog where 1=1
+     <if test="oplog_id != null and oplog_id != '' ">
+        and oplog_id = #{oplog_id,jdbcType=INTEGER}
+      </if>
+      <if test="user_id != null and user_id != '' ">
+        and user_id = #{user_id,jdbcType=INTEGER}
+      </if>
+      <if test="login_name != null and login_name != '' ">
+        and login_name = #{login_name,jdbcType=VARCHAR}
+      </if>
+      <if test="username != null and username != '' ">
+        and username = #{username,jdbcType=VARCHAR}
+      </if>
+      <if test="op_ip != null and op_ip != '' ">
+        and op_ip = #{op_ip,jdbcType=VARCHAR}
+      </if>
+      <if test="function_id != null and function_id != '' ">
+        and function_id = #{function_id,jdbcType=INTEGER}
+      </if>
+      <if test="operate_type != null and operate_type !=''">
+        and operate_type = #{operate_type,jdbcType=INTEGER}
+      </if>
+      <if test="operate_content != null and operate_content != '' ">
+        and operate_content = #{operate_content,jdbcType=VARCHAR}
+      </if>
+       <if test="start_time != null and start_time != '' ">
+        and operate_time  &gt;= #{start_time,jdbcType=TIMESTAMP}
+      </if>
+      <if test="end_time != null and end_time != '' ">
+        and operate_time &lt;= #{end_time,jdbcType=TIMESTAMP}
+      </if>
+      <if test="phone != null and phone != '' ">
+          and phone = #{phone,jdbcType=VARCHAR}
+      </if>
+     <!-- <if test="resource_type != null and resource_type != '' ">
+          and resource_type = #{resource_type,jdbcType=INTEGER}
+      </if>
+      <if test="resource_message != null and resource_message != '' ">
+          and resource_message = #{resource_message,jdbcType=VARCHAR}
+      </if>-->
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert" parameterType="cn.com.test.user.entity.TOperateLog">
+  <selectKey keyProperty="oplog_id" resultType="Integer">
+            select LAST_INSERT_ID()
+        </selectKey>
+    insert into t_operatelog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="login_name != null">
+        login_name,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="op_ip != null">
+        op_ip,
+      </if>
+      <if test="function_id != null">
+        function_id,
+      </if>
+      <if test="operate_type != null">
+        operate_type,
+      </if>
+      <if test="operate_content != null">
+        operate_content,
+      </if>
+      <if test="operate_time != null">
+        operate_time,
+      </if>
+        <if test="phone != null">
+            phone,
+        </if>
+        <!--<if test="resource_type != null">
+            resource_type,
+        </if>
+        <if test="resource_message != null">
+            resource_message,
+        </if>-->
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="user_id != null">
+        #{user_id,jdbcType=INTEGER},
+      </if>
+      <if test="login_name != null">
+        #{login_name,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="op_ip != null">
+        #{op_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="function_id != null">
+        #{function_id,jdbcType=INTEGER},
+      </if>
+      <if test="operate_type != null">
+        #{operate_type,jdbcType=INTEGER},
+      </if>
+      <if test="operate_content != null">
+        #{operate_content,jdbcType=VARCHAR},
+      </if>
+      <if test="operate_time != null">
+        #{operate_time,jdbcType=TIMESTAMP},
+      </if>
+        <if test="phone != null">
+            #{phone,jdbcType=VARCHAR},
+        </if>
+       <!-- <if test="resource_type != null">
+            #{resource_type,jdbcType=INTEGER},
+        </if>
+        <if test="resource_message != null">
+            #{resource_message,jdbcType=VARCHAR},
+        </if>-->
+    </trim>
+  </insert>
+  
+  <!--查询操作日志中的功能菜单  -->
+  <!--<select id="queryOperateLogFunctions" resultMap="BaseResultMap2">
+  	select 
+    <include refid="Base_Column_List2" />
+    from t_permission
+    where perm_id not in ('79','66','319','72') and
+      parent_perm_id in ('24','27','28','26','1','33','34','-1','421','422','423')  order by perm_id asc
+  </select>-->
+  <!--    where func_parent_id in ('24','27','28','26') or func_id in ('68','61','80') order by func_parent_id asc 
+    -->
+
+    <update id="updateOperate" parameterType="cn.com.test.user.entity.TOperateLog" >
+        update t_operatelog
+        set
+        phone = #{phone,jdbcType=VARCHAR}
+        where user_id = #{user_id,jdbcType=INTEGER}
+    </update>
+
+
+</mapper>

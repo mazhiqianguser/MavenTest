@@ -1,27 +1,65 @@
-.back_blue_a{
-}
 .layui_auto{
-    width: 50%;
+    width: 60%;
     height: 100%;
     line-height: 60px;
     text-align: center;
     font-size: 22px;
     color: rgb(77, 176, 219);
-    background: url(../images/icon_bck.png) no-repeat;
+    /*background: url(../images/icon_bck.png) no-repeat;*/
     background-size: 100%;
     margin: 0 auto;
     position: absolute;
     left: 50%;
     top: 0;
-    margin-left: -25%;
+    margin-left: -30%;
+}
+.layui_auto_img_left{
+	width: 10%;
+	height: 100%;
+	float: left;
+	background: url(../images/icon_bck.png) no-repeat;
+	background-size: 100%;
+}
+#title{
+    font-size: 22px;
+    color: rgb(77, 176, 219);
+}
+.left_title{
+    width: 10%;
+    height: 30px;
+    background: url(../images/head_bg-bule_left.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    margin-right: 10px;
+}
+.right_title{
+    width: 10%;
+    height: 30px;
+    background: url(../images/head_bg-bule_right.png);
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    -moz-background-size: 100% 100%;
+    margin-left: 10px;
+}
+.layui_auto_img_right{
+	width: 10%;
+	height: 100%;
+	float: right;
+	background: url(../images/icon_bck.png) no-repeat;
+	background-size: 100%;
+}
+.layui-layout-admin{
+	background: #081343;
 }
 .admin-navbar-side{
 	width: 200px;
     position: absolute;
-    top: 61px;
-    left: 20px;
+    /*top: 61px;*/
+    /*left: 20px;*/
     min-height: 350px;
 	background: rgba(0,0,0,.8)!important;
+	display: none;
     /*background: #081040;*/
 }
 .layui-nav-bar{
@@ -30,12 +68,13 @@
 .admin-navbar-side1{
 	width: 200px;
     position: absolute;
-    top: 61px;
-    left: 220px;
+    /*top: 61px;*/
+    /*left: 220px;*/
     min-height: 350px;
     /*background: #081040;*/
    background: rgba(0,0,0,.8)!important;
         border-left: 1px solid #24adf3;
+	display: none;
 }
 .layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-nav-tree .layui-this, .layui-nav-tree .layui-this>a, .layui-nav-tree .layui-this>a:hover{
 	background: rgba(0,0,0,.0)!important;
@@ -47,19 +86,19 @@
 .admin-navbar-side2{
 	width: 200px;
     position: absolute;
-    top: 61px;
-    left: 420px;
+    /*top: 61px;*/
+    /*left: 420px;*/
      min-height: 350px;
      /*background: #081040;*/
     background: rgba(0,0,0,.8)!important;
      border-left: 1px solid #24adf3;
+	display: none;
 }
 .layui-nav-child{
 	z-index: 999;
 	background: rgba(0,0,0,.8);
     border: none;
 }
-
 .closeBox{
 	padding: 0;
     margin: 0;
@@ -161,9 +200,13 @@ select[lay-ignore] option{
 	    background-color: #4E5465;
 }
 .layui-layout-admin .layui-header{
-	/*background: url("../images/1_5.jpg")!important;*/
+	width: 100%;
+	height: 60px;
+	/*background: url("../images/header_bg.png")  no-repeat center!important;*/
 	background: #081343;
-	background-size:100%;
+	background-repeat: no-repeat;
+	background-size:100% 100%;
+	-moz-background-size: 100% 100%;
 }
 .layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after{
 	background: rgba(0,0,0,.0);
@@ -204,7 +247,7 @@ select[lay-ignore] option{
 	background: #081649;
     color: #5bc1fe;
     line-height: 24px;
-    margin: 8px 3px;
+    margin: 8px 2px;
     border-radius: 5px;
     padding: 0 5px;
     cursor: pointer;
@@ -526,9 +569,9 @@ select[lay-ignore] option{
 	border-color: rgba(36,174,244,.3)!important;
     background-color: rgba(36,174,244,.3)!important;
 }
-/*.layui-icon{*/
-	/*color: #5bc1fe!important;*/
-/*}*/
+.layui-icon{
+	color: #5bc1fe;
+}
 .coin{
 	height: 40px;
     line-height: 40px;
@@ -645,6 +688,7 @@ input[type=number]::-webkit-outer-spin-button {
 .form_lay{
 	border-bottom: 1px solid #5bc1fe;
 	margin-bottom: 5px;
+	height: 48px;
 }
 .layui_inputO{
 	width: 95%;
@@ -689,7 +733,7 @@ input[type=number]::-webkit-outer-spin-button {
 	cursor: pointer;
 }
 .Input{
-	width: 50px;
+	width: 98px;
     height: 20px;
     background: rgba(0,0,0,.0);
     color: #5bc1fe;
@@ -705,13 +749,22 @@ input[type=number]::-webkit-outer-spin-button {
 	    float: left;
 }
 #dataTables-organization_wrapperO td:nth-child(1){
-	display: none;
-}
+	 display: none;
+ }
 #dataTables-organization_wrapperO .header{
 	display: none;
 }
 #dataTables-organization_wrapperO td{
-	    padding-right: 15px;
+	padding-right: 15px;
+}
+#dataTables-organization_wrapperW td:nth-child(1){
+	display: none;
+}
+#dataTables-organization_wrapperW .header{
+	display: none;
+}
+#dataTables-organization_wrapperW td{
+	padding-right: 15px;
 }
 input[type=checkbox] {
   width: 16px;
@@ -734,3 +787,25 @@ input[type=checkbox] {
 .layui-layer-ico{
     background: url(../images/iconBule.png) no-repeat!important;
 }
+.site_active{
+	color: #5bc1fe!important;
+}
+.layui-form-item{
+	position: relative;
+}
+.slimScrollDiv{
+	display: none;
+}
+#leftNav > li{
+	margin-right: 30px;
+}
+#leftNav > li:nth-child(1){
+	margin-right: 10px;
+}
+
+/*#form_bnt .layui-form-label{*/
+	/*min-width: 120px;*/
+/*}*/
+/*#form_bnt .layui-input-block{*/
+	/*margin-left: 160px;*/
+/*}*/

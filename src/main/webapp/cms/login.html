@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<!--
-* @Author: defaultFish
-* @Date:   2017-12-12 00:00:00
-* +
-* | siteCMS [ siteCMS网站内容管理系统 ]
-* | Copyright (c) 2017 https://www.sitecms.cn All rights reserved.
-* | Licensed ( https://www.sitecms.cn/licenses/ )
-* | Author: defaultfish <defaultfish@qq.com>
-* +
--->
-<html lang="zh-cn">
+    <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>登陆页面</title>
+    <title>xxxx管理平台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="renderer" content="webkit">
@@ -23,48 +13,44 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="layui-v2.3.0-rc1/layui/css/layui.css" media="all" />
     <link rel="stylesheet" href="style/index.css" media="all" id="index_css"/>
-	<!--<link rel="stylesheet" href="style/index_one.css" media="all" />-->
+    <!--<link rel="stylesheet" href="style/index_one.css" media="all" />-->
     <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/animate.css">
     <link rel="stylesheet" href="./css/sitecms.css">
-	
-    <!-- 让IE8/9支持媒体查询 -->
-	<!--[if lt IE 9]>
-		<script src="./js/html5shiv.min.js"></script>
-		<script src="./js/respond.min.js"></script>
-	<![endif]-->
-
+    <link rel="stylesheet" href="./css/login2.css">
 </head>
 <body>
-<div class="layui-layout-admin sc_login">
+<div class="layui-layout-admin sc_login" style=" background: url(images/bg3.jpg) no-repeat;background-size: 100%;">
+    <div class="shade">
         <div class="sc_login_content">
             <div class="sc_login_right">
                 <form method="post" id="form" class="layui-form">
                     <dl>
-                        <dt>手机金盾管理云平台</dt>
-                        <P class="nameP">账号</P>
+                        <dt id="login_title">权限框架管理平台</dt>
                         <dd>
                             <label for="username">
+                                <P class="nameP">账 号</P>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="username" autocomplete="off" placeholder="请输入用户名" datatype="s2-16" errormsg="用户名至少2个字符!" nullmsg="请输入用户名!" class="layui-input" />
+                                    <input id="username" type="text" name="username" autocomplete="off" placeholder="请输入用户名" datatype="s2-999" errormsg="用户名至少2个字符!" nullmsg="请输入用户名!" class="layui-input" />
                                 </div>
                             </label>
                         </dd>
-                        <p class="nameP">密码</P>
                         <dd>
                             <label for="password">
+                                <p class="nameP">密 码</P>
                                 <div class="layui-input-inline">
-                                    <input type="password" name="password" autocomplete="off" placeholder="请输入密码" datatype="*6-18" errormsg="密码范围在6~18位之间!" nullmsg="请输入密码!" class="layui-input" />
+                                    <input  id="password" type="password" name="password" autocomplete="off" placeholder="请输入密码" datatype="*6-18" errormsg="密码范围在6~18位之间!" nullmsg="请输入密码!" class="layui-input" />
                                 </div>
                             </label>
                         </dd>
-                        <p class="nameP">验证码</P>
                         <dd>
-                        	<label for="username">
-                                <div class="layui-input-inline" style="width: 340px;" id="inliChe">
-                                    <input type="text" name="username" autocomplete="off" placeholder="请输入验证码" datatype="s4-16" errormsg="验证码至少4个字符!" nullmsg="请输入验证码!" class="layui-input" style="width: 260px;float: left;" />
-                                    <img src="images/1_5.jpg" class="img_tie" title="更换图片"/>
+                            <label for="verification">
+                                <p class="nameP">验证码</P>
+                                <div class="layui-input-inline" style="width: 200px;" id="inliChe">
+                                    <!--datatype="s4-16" errormsg="验证码至少4个字符!" nullmsg="请输入验证码!"-->
+                                    <input id="verification" type="text" name="verification" autocomplete="off" placeholder="请输入验证码"  class="layui-input" style="width: 115px;float: left;" />
+                                    <img src="" class="img_tie" title="更换图片"/>
                                 </div>
                             </label>
                             <!--<label for="username">
@@ -83,11 +69,13 @@
                 </form>
             </div>
         </div>
+        <P id="bbh" >版本：v1.6.0</P>
+    </div>
 </div>
-	<script type="text/javascript" src="layui-v2.3.0-rc1/layui/layui.js"></script>
-	<script type="" src="js/jquery/jquery-3.3.1.min.js"></script>
-	<script src="js/Echarts/echarts-all.js"></script>	
-	<script src="js/validform.js"></script>
-    <script src="js/login.js"></script>
+<script type="text/javascript" src="layui-v2.3.0-rc1/layui/layui.js"></script>
+<script type="" src="js/jquery/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script src="js/validform.js"></script>
+<script src="js/login.js"></script>
 </body>
 </html>

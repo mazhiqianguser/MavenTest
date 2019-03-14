@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	<!-- 加载配置文件 -->
+	<context:property-placeholder location="classpath:properties/*.properties" />
+	
+	<bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4jFilter">
+    	<property name="resultSetLogEnabled" value="true" />
+	</bean>
+	<!-- 配置数据库连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="maxActive" value="100" />
+		<property name="minIdle" value="5" />
+		 <property name="filters" value="${jdbc.filters}" />
+		<!-- 关闭abanded连接时输出错误日志 -->
+		<property name="logAbandoned" value="true" />
+		<!-- 超过时间限制是否回收 --> 
+		<property name="removeAbandoned" value="true" /> 
+		<!-- 超时时间；单位为秒。180秒=3分钟 --> 
+		<property name="removeAbandonedTimeout" value="600" /> 
+		<property name="proxyFilters">
+	        <list>
+	            <ref bean="log-filter"/>
+	        </list>
+	    </property>
+	</bean>
+
+	<!-- 加载mapper,dao文件 -->
+	<!-- 配置sqlsessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- mapper scan package -->
+		<property name="mapperLocations"  >
+			<list>
+				<!--权限部分mapper-->
+				<!-- mysql -->
+				<value>classpath*:cn.com.test.user.mapper/*.xml</value>
+				<!-- informix -->
+				<!--<value>classpath*:cn/com/test/user/informixmapper/*.xml</value>-->
+				<!--业务部分mapper-->
+				<!--<value>classpath*:cn.com.test.user.mapper/*.xml</value>-->
+			</list>
+		</property>
+		<!-- 加载mybatis全局配置文件 -->
+		<property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.com.test.user.dao.**"></property>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+</beans>

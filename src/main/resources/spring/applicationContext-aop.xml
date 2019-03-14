@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+    <!-- <bean id="logAdvice" class="com.cintel.commons.LogAdvice"></bean>
+    <aop:config>
+        <aop:aspect id="aspect" ref="logAdvice">
+            <aop:pointcut id="pointUserMgr" expression="@annotation(cn.com.cintel.rg.Log)"></aop:pointcut>
+            <aop:before method="doBefore"  pointcut-ref="pointUserMgr"/>
+            <aop:after method="doAfter"  pointcut-ref="pointUserMgr"/>
+            <aop:around method="doAround"  pointcut-ref="pointUserMgr"/>
+            <aop:after-returning method="doReturn"  pointcut-ref="pointUserMgr"/>
+            <aop:after-throwing method="doThrowing" throwing="ex" pointcut-ref="pointUserMgr"/>
+        </aop:aspect>
+    </aop:config> -->
+
+</beans>

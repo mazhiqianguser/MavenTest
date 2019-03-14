@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>权限管理</title>
+	<title>菜单管理</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -32,12 +32,12 @@
 				<a>所在位置：</a>
 				<span>系统管理</span>
 				<samp> > </samp>
-				<span>权限管理</span>
+				<span>菜单管理</span>
 			</p>
 		</div>
 		<button class="layui-btn btn_rin Remove" style="margin-left: 10px; "><i class="layui-icon layui-icon-delete" style="font-size: 15px;padding-right: 0px;"></i>删除</button>
-		<button class="layui-btn btn_rin fold" style="margin-right: 0px; "><i class="layui-icon layui-icon-up" style="font-size: 15px;padding-right: 0px;"></i>折叠</button>
-		<button class="layui-btn btn_rin unfold" style="margin-right: 0px; "><i class="layui-icon layui-icon-down" style="font-size: 15px;padding-right: 0px;"></i>展开</button>
+		<!--<button class="layui-btn btn_rin fold" style="margin-right: 0px; "><i class="layui-icon layui-icon-up" style="font-size: 15px;padding-right: 0px;"></i>折叠</button>-->
+		<button class="layui-btn btn_rin unfold" style="margin-right: 0px; "><i class="layui-icon layui-icon-down" style="font-size: 15px;padding-right: 0px;"></i><sapn class="unzk">展开</sapn></button>
 		<button class="layui-btn btn_rin add_uer" style="margin-right: 0px; "><i class="layui-icon layui-icon-add-1" style="font-size: 15px;padding-right: 0px;"></i>新增</button>
 	</div>
 </div>
@@ -55,55 +55,55 @@
 		<div class="layui-form-item formItem" style="margin-top:15px;  ">
 			<label class="layui-form-label">上级菜单</label>
 			<div class="layui-input-block">
-				<input  name="title" lay-verify="title" autocomplete="off"  class="layui-input layui_input layui_inpuW" id="pervNav">
+				<input  name="title" lay-verify="parentId" autocomplete="off"  id="pervNav" class="layui-input layui_input layui_inpuW" id="pervNav" placeholder="如不选，默认此菜单为顶级">
 			</div>
-			<div style="max-height: 200px;    overflow-x: scroll; position: absolute;z-index: 100; background: #081343;left: 108px;">
-				<div id="dataTables-organization_wrapperO" style="display: none;"></div>
+			<div style="display: none;max-height: 200px;display: none;overflow-x: scroll; position: absolute;z-index: 100; background: #081343;left: 108px;">
+				<div id="dataTables-organization_wrapperO"></div>
 			</div>
 		</div>
 		<div class="layui-form-item formItem" style="margin-top:15px">
 			<label class="layui-form-label">菜单名称</label>
 			<div class="layui-input-block">
-				<input  type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input layui_input layui_inpuW" >
+				<input  type="text" name="perm_name" lay-verify="perm_name" lay-verify="id" autocomplete="off" class="layui-input layui_input layui_inpuW" id="namePo" >
 			</div>
 		</div>
 		<div class="layui-form-item formItem">
 			<label class="layui-form-label">链接(Url)</label>
 			<div class="layui-input-block">
-				<input  type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input layui_input layui_inpuW">
+				<input  type="text" name="perm_url" lay-verify="perm_url" autocomplete="off"  class="layui-input layui_input layui_inpuW" id="url">
 			</div>
 		</div>
 		<div class="layui-form-item formItem">
 			<label class="layui-form-label">排序(升序)</label>
 			<div class="layui-input-block">
-				<input  type="number" onkeyup="value=value.replace(/[^\d]/g,'')" name="number" lay-verify="number" autocomplete="off"  class="layui-input layui_input layui_inpuW">
+				<input  type="sort"  lay-verify="sort" onkeyup="value=value.replace(/[^\d]/g,'')" name="number"  autocomplete="off"  id="sort" class="layui-input layui_input layui_inpuW" >
 			</div>
 		</div>
 		<div class="layui-form-item formItem">
-			<label class="layui-form-label">权限标识</label>
+			<label class="layui-form-label">权限代码</label>
 			<div class="layui-input-block">
-				<input  type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input layui_input layui_inpuW">
+				<input  type="text" name="perm_code" lay-verify="perm_code" autocomplete="off"  id="sign" class="layui-input layui_input layui_inpuW">
 			</div>
 		</div>
 		<div class="layui-form-item formItem">
 			<label class="layui-form-label">图标icon</label>
 			<div class="layui-input-block">
-				<input  type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input layui_input layui_inpuW">
+				<input  type="text" name="perm_icon" lay-verify="perm_icon" autocomplete="off"  id="icon" class="layui-input layui_input layui_inpuW">
 			</div>
 		</div>
-		<div class="layui-form-item formItem">
-			<label class="layui-form-label">菜单类型</label>
-			<div class="layui-input-block">
-				<input type="radio" name="menu" value="菜单" title="菜单" checked="" lay-filter='filter'>
-				<input type="radio" name="menu" value="权限" title="权限" lay-filter='filter'>
-				<!--<input type="radio" name="sex" value="禁" title="禁用" disabled="">-->
-			</div>
-		</div>
+		<!--<div class="layui-form-item formItem">-->
+			<!--<label class="layui-form-label">菜单类型</label>-->
+			<!--<div class="layui-input-block" id="type">-->
+				<!--<input type="radio" name="perm_type" lay-filter="perm_type" value="0" title="菜单" checked="" lay-filter='filter'>-->
+				<!--<input type="radio" name="perm_type"  lay-filter="perm_type" value="1" title="按钮" lay-filter='filter'>-->
+				<!--&lt;!&ndash;<input type="radio" name="sex" value="禁" title="禁用" disabled="">&ndash;&gt;-->
+			<!--</div>-->
+		<!--</div>-->
 		<div class="layui-form-item formItem">
 			<label class="layui-form-label">可见</label>
-			<div class="layui-input-block">
-				<input type="radio" name="show" value="显示" title="显示" checked="" lay-filter='filter'>
-				<input type="radio" name="show" value="隐藏" title="隐藏" lay-filter='filter'>
+			<div class="layui-input-block" id="state">
+				<input type="radio" name="perm_state" value="1" title="显示" checked="" lay-filter='perm_state'>
+				<input type="radio" name="perm_state" value="2" title="隐藏" lay-filter='perm_state'>
 				<!--<input type="radio" name="sex" value="禁" title="禁用" disabled="">-->
 			</div>
 		</div>
@@ -135,14 +135,73 @@
 	<script type="text/html" id="indexTpl">
 		{{d.LAY_TABLE_INDEX+1}}
 	</script>
-	<script type="" src="../js/TreeGrid/jq-treegrid.js"></script>
 	<script type="" src="../js/TreeGrid/jquery-1.11.1-min.js"></script>
-
+	<script type="" src="../js/TreeGrid/jq-treegrid.js"></script>
+	<script type="" src="../js/common.js"></script>
 	<script type="text/javascript">
         /**
          * [config treegrid配置项对象]
          * @type {Object}
          */
+        var newData;
+        $.ajax({
+            url:getRootPath_web()+"/perm/select",
+            async: false,
+            success:function(data){
+                //将一位数组改变成树状结构图
+                function treeObj(originObj){
+                    //对象深拷贝
+                    var obj ={};
+                    for (key in originObj){
+                        var val = originObj[key];
+                        obj[key] = typeof val === 'object' ? arguments.callee(val):val;
+                    }
+                    //对象新增children键值，用于存放子树
+                    obj['children'] = [];
+                    return obj;
+                }
+                //data：带转换成树形结构的对象数组
+                //attributes：对象属性
+                function toTreeData (data, attributes) {
+                    var resData = data;
+                    var tree = [];
+                    //找寻根节点 默认返回的parentId为空后期可以更改判断
+                    for (var i = 0; i < resData.length; i++) {
+                        if ( resData[i][attributes.parentId] === ''|| resData[i][attributes.parentId] === null ||resData[i][attributes.parentId] == 0) {
+                            tree.push( treeObj(resData[i]) );
+                            resData.splice(i, 1);
+                            i--;
+                        }
+                    }
+                    run(tree);
+                    //找寻子树
+                    function run(chiArr) {
+                        if (resData.length !== 0) {
+                            for (var i = 0; i < chiArr.length; i++) {
+                                for (var j = 0; j < resData.length; j++) {
+                                    if (chiArr[i][attributes.id] === resData[j][attributes.parentId]){
+                                        var obj = treeObj(resData[j]);
+                                        chiArr[i].children.push(obj);
+                                        resData.splice(j, 1);
+                                        j--;
+                                    }
+                                }
+                                run(chiArr[i].children);
+                            }
+                        }
+                    }
+                    return tree;
+                }
+                data = data;
+                // 属性配置信息
+                var attributes = {
+                    id: 'id',
+                    parentId: 'parentId'
+                };
+                var treeData = toTreeData(data.data, attributes);
+                newData = treeData
+            }
+        })
         var config = {
             id: "datatables-organization",//table的id
             width: "100%",
@@ -161,169 +220,7 @@
                 {headerText: "", headerAlign: "left", dataAlign: "left", width: "10", handler: "customCheckBox"},
                 {headerText: "菜单列表", dataField: "title", headerAlign: "left", handler: "customOrgName",width:""},
             ],
-            data:[{
-                "id": "68",
-                "path": "1",
-                "pid": "0",
-                "title": "系统管理",
-                "icon": "&#xe62c;",
-                "children": [{
-                    "id": "69",
-                    "path": "1",
-                    "pid": "68",
-                    "title": "菜单列表",
-                    "icon": "&#xe63a;",
-                    "children": [
-                        {
-                            "id": "691",
-                            "path": "1",
-                            "pid": "69",
-                            "title": "菜单管理",
-                            "icon": "&#xe63a;",
-                            "href": "user/jurisdiction.html"
-                        },
-                        {
-                            "id": "692",
-                            "path": "1",
-                            "pid": "69",
-                            "title": "角色权限管理",
-                            "icon": "&#xe63a;",
-                            "href": "user/management.html"
-                        },
-                    ]
-                }, {
-                    "id": "71",
-                    "path": "1",
-                    "pid": "68",
-                    "title": "用户列表",
-                    "icon": "&#xe643;",
-                    "children": [
-                        {
-                            "id": "711",
-                            "path": "1",
-                            "pid": "71",
-                            "title": "用户管理",
-                            "icon": "&#xe63a;",
-                            "href": "user/userList.html"
-                        },
-                    ]
-                }, {
-                    "id": "191",
-                    "path": "1",
-                    "pid": "68",
-                    "title": "网站信息",
-                    "icon": "&#xe62a;",
-                    "href": "www.jd.html",
-                    "children": []
-                }, {
-                    "id": "192",
-                    "path": "1",
-                    "pid": "68",
-                    "title": "友情连接",
-                    "icon": "&#xe63b;",
-                    "href": "main.html",
-                    "children": []
-                }, {
-                    "id": "197",
-                    "path": "1",
-                    "pid": "68",
-                    "title": "分组管理",
-                    "icon": "&#xe640;",
-                    "href": "main.html",
-                    "children": []
-                }]
-            }, {
-                "id": "193",
-                "path": "1",
-                "pid": "0",
-                "title": "消息中心",
-                "icon": "&#xe645;",
-                "children": [{
-                    "id": "194",
-                    "path": "1",
-                    "pid": "193",
-                    "title": "系统消息",
-                    "icon": "&#xe646;",
-                    "href": "main.html",
-                    "children": []
-                }]
-            }, {
-                "id": "283",
-                "path": "1",
-                "pid": "0",
-                "title": "用户管理",
-                "icon": "&#xe770;",
-                "children": [{
-                    "id": "284",
-                    "path": "1",
-                    "pid": "283",
-                    "title": "用户列表",
-                    "icon": "&#xe635;",
-                    "href": "main.html",
-                    "children": []
-                }]
-            }, {
-                "id": "285",
-                "path": "1",
-                "pid": "0",
-                "title": "帐户管理",
-                "icon": "&#xe65e;",
-                "children": [{
-                    "id": "286",
-                    "path": "1",
-                    "pid": "285",
-                    "title": "充值记录",
-                    "icon": "&#xe62e;",
-                    "href": "main.html",
-                    "children": []
-                }, {
-                    "id": "287",
-                    "path": "1",
-                    "pid": "285",
-                    "title": "提现记录",
-                    "icon": "&#xe62d;",
-                    "href": "main.html",
-                    "children": []
-                }, {
-                    "id": "289",
-                    "path": "1",
-                    "pid": "285",
-                    "title": "消费记录",
-                    "icon": "&#xe630;",
-                    "href": "main.html",
-                    "children": []
-                }]
-            }, {
-                "id": "290",
-                "path": "1",
-                "pid": "0",
-                "title": "焦点广告",
-                "icon": "&#xe634;",
-
-            }, {
-                "id": "302",
-                "path": "1",
-                "pid": "0",
-                "title": "宝箱管理",
-                "icon": "&#xe735;",
-                "children": [{
-                    "id": "303",
-                    "path": "1",
-                    "pid": "302",
-                    "title": "宝箱总金额管理",
-                    "icon": "&#xe632;",
-                    "href": "main.html",
-                    "children": []
-                }, {
-                    "id": "304",
-                    "path": "1",
-                    "pid": "302",
-                    "title": "刷新宝箱数量管理",
-                    "icon": "&#xe631;",
-                    "href": "main.html",
-                    "children": []
-                }]
-            }]
+            data:newData
         };
         /**
          * 展开、收起所有节点
@@ -439,12 +336,24 @@
         //			}
         //
         //		})
-        $("#dataTables-organization_wrapperO  td").on('click',function(e){
-            $("#pervNav").val( $(this).text() )
-            $("#dataTables-organization_wrapperO").hide();
+        function stopPropagation(e) {
+            if (e.stopPropagation)
+                e.stopPropagation();//停止冒泡  非ie
+            else
+                e.cancelBubble = true;//停止冒泡 ie
+        }
+        $("#pervNav").on('click',function(e){
+            stopPropagation(e);
+            $("#dataTables-organization_wrapperO").parent().show();
+            return false
         })
-        $("#pervNav").on('focus',function(e){
-            $("#dataTables-organization_wrapperO").show();
+        $(document).bind('click',function(){
+            $("#dataTables-organization_wrapperO").parent().hide();
+        });
+        $("#dataTables-organization_wrapperO  td").on('click',function(e){
+            $("#dataTables-organization_wrapperO").hide();
+            $("#pervNav").val( $(this).text() );
+            $("#pervNav").attr("dataId",$(this).prev().children("sapn").attr("value") )
         })
 
 	</script>
@@ -454,11 +363,82 @@
          * @type {Object}
          */
         var Data;
+        var ID;
+        var title;
+        var Pid;
+        var Ptitle;
+        var parentId,perm_name,perm_url,perm_icon,perm_type,perm_state,perm_code,sort;
         $.ajax({
-            url:"../data/root.json",
+            url:getRootPath_web()+"/perm/select",
             async: false,
             success:function(data){
-                Data = data
+                //将一位数组改变成树状结构图
+                function treeObj(originObj){
+                    //对象深拷贝
+                    var obj ={};
+                    for (key in originObj){
+                        var val = originObj[key];
+                        obj[key] = typeof val === 'object' ? arguments.callee(val):val;
+                    }
+                    //对象新增children键值，用于存放子树
+                    obj['children'] = [];
+                    return obj;
+                }
+                //data：带转换成树形结构的对象数组
+                //attributes：对象属性
+                function toTreeData (data, attributes) {
+                    var resData = data;
+                    var tree = [];
+                    //找寻根节点 默认返回的parentId为空后期可以更改判断
+                    for (var i = 0; i < resData.length; i++) {
+                        if ( resData[i][attributes.parentId] == 0) {
+                            tree.push( treeObj(resData[i]) );
+                            resData.splice(i, 1);
+                            i--;
+                        }
+                    }
+                    run(tree);
+                    //找寻子树
+                    function run(chiArr) {
+                        if (resData.length !== 0) {
+                            for (var i = 0; i < chiArr.length; i++) {
+                                for (var j = 0; j < resData.length; j++) {
+                                    if (chiArr[i][attributes.id] == resData[j][attributes.parentId]){
+                                        var obj = treeObj(resData[j]);
+                                        chiArr[i].children.push(obj);
+                                        resData.splice(j, 1);
+                                        j--;
+                                    }
+                                }
+                                run(chiArr[i].children);
+                            }
+                        }
+                    }
+                    return tree;
+                }
+                //排序
+                var arr = data.data;
+                var compare = function (obj1, obj2) {
+                    var val1 = obj1.sort;
+                    var val2 = obj2.sort;
+                    if (val1 < val2) {
+                        return -1;
+                    } else if (val1 > val2) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                };
+                console.log( arr.sort(compare) );
+                console.log( data.data )
+                data = arr.sort(compare);
+                // 属性配置信息
+                var attributes = {
+                    id: 'id',
+                    parentId: 'parentId'
+                };
+                var treeData = toTreeData(data, attributes);
+                Data = treeData
             }
         })
         var config = {
@@ -474,17 +454,54 @@
             // defaultLeafIcon: "img/branch_icon.png",//叶子节点的图标
             hoverRowBackground: "true",//鼠标悬停是否显示背景色
             folderColumnIndex: "1",//层次缩进
-            itemClick: "itemClickEvent",//点击一行的事件处理函数
+            itemClick: "selectedItem",//点击一行的事件处理函数
+            cascadeCheck:true,
+            cascadeCancel:true,
+            cascade : function(){//this == tr
+                //1.当前必须是复选框
+                //2.选中后需要同时选中行selected
+                //3.
+                var $this = $(this);
+                var checkOrRadio = $this.treegrid('getSetting','checkOrRadio');//单选还是复选
+                if(checkOrRadio === 'check'){//复选框
+                    var checkName = $this.treegrid('getSetting','checkName');//checkName
+                    var isChecked = $this.find('input[name="'+checkName+'"]').prop('checked');//是否选中
+                    var $tree = $this.closest('table');
+                    var cascadeCheck = $this.treegrid('getSetting','cascadeCheck');//选中级联
+                    var cascadeCancel = $this.treegrid('getSetting','cascadeCancel');//取消级联
+                    if(!cascadeCheck){return $this;}//不级联
+                    var needCheck = [],needJudge = isChecked ? cascadeCheck : cascadeCancel;
+                    if(needJudge === 'up' || needJudge == 'all' ){//向上级联，需要获得该节点的所有父节点，直到最后
+                        var $parentNodes = $this.treegrid('getAllParentNodes');
+                        needCheck = needCheck.concat($parentNodes);
+                    }
+                    if(needJudge === 'down' || needJudge === 'all'){//向下级联，需要获得该节点的所有子节点
+                        var childNodes = $this.treegrid('getAllChildNodes');
+                        needCheck = needCheck.concat(childNodes);
+                    }
+                    if(needCheck.length > 0){
+                        needCheck.forEach(function( item ){
+                            isChecked ? item.addClass('selected') : item.removeClass('selected');
+                            item.find('input[name="'+checkName+'"]').prop('checked',isChecked);
+                            if(typeof item.treegrid('getSetting','onCheck') === 'function'){
+                                var itemData = item.data('obj');
+                                item.treegrid('getSetting','onCheck').apply(item,[itemData,isChecked]);
+                            }
+                        });
+                    }
+                    byy($tree).initUI();
+                }
+            },
             columns:[//列名,表头和数据的对齐方式，宽度（可以是数值，也可以是百分比），自定义处理函数等
                 {headerText: "<input type='checkbox' id='checkAll'/ >", headerAlign: "left", dataAlign: "left", width: "10", handler: "customCheckBox"},
-//					{headerText: "全选", dataField: "title", headerAlign: "left", handler: "customOrgName",width:""},
+//				{headerText: "全选", dataField: "title", headerAlign: "left", handler: "customOrgName",width:""},
                 {headerText: "菜单名称", dataField: "title", headerAlign: "left", handler: "customOrgName",width:""},
-                {headerText: "url", dataField: "href", headerAlign: "left", handler: "",width:""},
-                {headerText: "icon", dataField: "icon",  headerAlign: "left", handler: "icon",width:""},
-                {headerText: "序号", dataField: "id", headerAlign: "left", handler: "inputP",width:""},
-                {headerText: "类型", dataField: "path", headerAlign: "left", handler: "",width:""},
-                {headerText: "可见",  headerAlign: "left", handler: "block",width:""},
-                {headerText: "标识", dataField: "pid", headerAlign: "left", handler: "",width:""},
+                {headerText: "url", dataField: "url", headerAlign: "left", handler: "",width:""},
+                {headerText: "icon", dataField: "icon",  headerAlign: "left", handler: "icon",width:"70"},
+                {headerText: "序号", dataField: "sort", headerAlign: "left", handler: "inputP",width:"100"},
+                //{headerText: "类型", dataField: "type", headerAlign: "left", handler: "typeName",width:"50"},
+                {headerText: "可见",  headerAlign: "left", handler: "block",width:"50"},
+                {headerText: "权限代码", dataField: "code", headerAlign: "left", handler: "",width:""},
                 {headerText: "操作", headerAlign: "left", dataAlign: "left", width: "", handler: "customLook"}
             ],
             data:Data
@@ -492,7 +509,6 @@
         /**
          * 展开、收起所有节点
          */
-
         /**
          * [itemClickEvent 单击数据行后触发该事件]
          * @param  {[String]} id    [行的id]
@@ -510,7 +526,7 @@
          * @param  {[Object]} col
          */
         function customCheckBox(row, col){
-            return "<input type='checkbox' name='orgIds' value="+ row.id + "/>";
+            return "<input type='checkbox' name='orgIds' value="+ row.id + ">";
         };
 
         /**
@@ -522,16 +538,29 @@
             var name = row[col.dataField] || "";
             return name;
         };
+        function typeName(row, col){
+            if( row.type  == 0 ){
+                var name = "菜单";
+            }else if( row.type  == 1 ){
+                var name = "按钮";
+            }else {
+                var name = "未知";
+            }
+            return name;
+        };
         function inputP(row,col){
-            console.log( row )
-            return "<input type='text' value="+ row.pid +" class='layui-input Input' onblur='Inputblur(this)'>";
+            return "<input type='text' id="+ row.id +" value="+ row.sort  +" class='layui-input Input' onblur='Inputblur(this)'>";
         }
         function block(row,col){
-            return "<div class='layui-form'><input type='checkbox'  lay-skin='switch' lay-filter='filter'></div>";
+            if( row.state == 1 ){
+                return "<div class='layui-form'><input type='checkbox' value="+ row.id +" lay-skin='switch' lay-filter='filter' checked></div>";
+            }else{
+                return "<div class='layui-form'><input type='checkbox' value="+ row.id +" lay-skin='switch' lay-filter='filter'></div>";
+            }
         }
         function icon(row,col){
             var pL = row.icon.split("&").join("");
-            return "<sapn>"+ pL	 +"</sapn>"
+            return "<sapn class='icon'>"+ pL +"</sapn>"
         }
         /**
          * [customLook 根据权限来显示操作控件的个数]
@@ -539,7 +568,7 @@
          * @param  {[Object]} col
          */
         function customLook(row, col){
-            return "<div style='width:18px;height: 28px;float: left;'><i  class='layui-icon layui-icon-add-1 Icon' title='添加' value='添加' onclick='IconAdd("+ row.id +",this)'> </i></div>&nbsp;<div style='width:18px;height: 28px;float: left;'><i class='layui-icon layui-icon-edit Icon' title='编辑' onclick='IconCompile("+ row.id +",this)'></i></div>&nbsp;<div style='width:18px;height: 28px;float: left;'><i class='layui-icon layui-icon-delete Icon' title='删除' value='删除'onclick='IconRemove("+ row.id +",this)'><i/></div>"
+            return "<div style='width:18px;height: 28px;float: left;'><i  class='layui-icon layui-icon-add-1 Icon' title='添加' value='添加' onclick='IconAdd("+ row.id +",this)'> </i></div>&nbsp;<div style='width:18px;height: 28px;float: left;'><i class='layui-icon layui-icon-edit Icon' title='编辑' onclick='IconCompile(this)'></i></div>&nbsp;<div style='width:18px;height: 28px;float: left;'><i class='layui-icon layui-icon-delete Icon' title='删除' value='删除'onclick='IconRemove("+ row.id +",this)'><i/></div>"
         };
 
         //创建一个组件对象
@@ -563,17 +592,31 @@
             if(treeGridItem!=null){
                 //获取数据行属性值
                 //console(treeGridItem.id + ", " + treeGridItem.index + ", " + treeGridItem.data.name);
-
                 //获取父数据行
                 var parent = treeGridItem.getParent();
-                if(parent!=null){
-                    console.log(parent.data.name);
-                }
-
-                //获取子数据行集
-                var children = treeGridItem.getChildren();
-                if(children!=null && children.length>0){
-                    console.log(children[0].data.name);
+                if( parent != null){
+                    //获取当前的元素
+                    ID = treeGridItem.data.id;
+                    title = treeGridItem.data.title;
+                    Pid = parent.data.id;
+                    Ptitle = parent.data.title;
+                    perm_url = treeGridItem.data.url;
+                    sort = treeGridItem.data.sort;
+                    perm_code = treeGridItem.data.code;
+                    perm_icon = decodeURIComponent(treeGridItem.data.icon)
+                    perm_type = treeGridItem.data.type;
+                    perm_state = treeGridItem.data.state;
+                }else{
+                    ID = treeGridItem.data.id;
+                    title = treeGridItem.data.title;
+                    perm_url = treeGridItem.data.url;
+                    sort = treeGridItem.data.sort;
+                    perm_code = treeGridItem.data.code;
+                    perm_icon = decodeURIComponent(treeGridItem.data.icon);
+                    perm_type = treeGridItem.data.type;
+                    perm_state = treeGridItem.data.state;
+                    Pid = "";
+                    Ptitle = "";
                 }
             }
         };
@@ -581,44 +624,43 @@
         /**
          * 展开、收起所有节点
          */
-
         jQuery("#checkAll").click(function(e){
             var isChk = jQuery(this).prop("checked");
             if(isChk == true){
-                expandAll('N');
-            }else{
                 expandAll('Y');
+            }else{
+                expandAll('N');
             }
         })
         expandAll('N');
         // 单选，并将单选绑定到外面的td标签上。当选中的是父节点时，相应子节点执行同样的操作
-        var chkParent = $("input[name='orgIds']").parent();
-        chkParent.click(function(e){
-            var ch = $(this).find('input').prop('checked');
-            if(ch == false){
-                $(this).find('input').prop('checked',true);
-                if($("input[name='orgIds']").length == $("input[name='orgIds']:checked").length){
-                    $("#checkAll").prop('checked',true);
-                }else{
-                    $("#checkAll").prop('checked',false);
-                }
-            }else{
-                $(this).find('input').prop('checked',false);
-                if($("input[name='orgIds']").length == $("input[name='orgIds']:checked").length){
-                    $("#checkAllt").prop('checked',true);
-                }else{
-                    $("#checkAll").prop('checked',false);
-                }
-            }
-        });
-        $("input[name='orgIds']").click(function(e){
-            e.stopPropagation();
-            if($("input[name='orgIds']").length == $("input[name='orgIds']:checked").length){
-                $("#checkAll").prop("checked",true);
-            }else{
-                $("#checkAll").prop("checked",false);
-            }
-        });
+        // var chkParent = $("input[name='orgIds']").parent();
+        // chkParent.click(function(e){
+        //     var ch = $(this).find('input').prop('checked');
+        //     if(ch == false){
+        //         $(this).find('input').prop('checked',true);
+        //         if($("input[name='orgIds']").length == $("input[name='orgIds']:checked").length){
+        //             $("#checkAll").prop('checked',true);
+        //         }else{
+        //             $("#checkAll").prop('checked',false);
+        //         }
+        //     }else{
+        //         $(this).find('input').prop('checked',false);
+        //         if($("input[name='orgIds']").length == $("input[name='orgIds']:checked").length){
+        //             $("#checkAllt").prop('checked',true);
+        //         }else{
+        //             $("#checkAll").prop('checked',false);
+        //         }
+        //     }
+        // });
+        // $("input[name='orgIds']").click(function(e){
+        //     e.stopPropagation();
+        //     if($("input[name='orgIds']").length == $("input[name='orgIds']:checked").length){
+        //         $("#checkAll").prop("checked",true);
+        //     }else{
+        //         $("#checkAll").prop("checked",false);
+        //     }
+        // });
 
 
         // 全选，并将全选绑定到外面的td标签上
@@ -656,9 +698,237 @@
                 alert(chk_value);
                 layer.closeAll();
             }
-
         })
-
+        //列表icon点击添加
+        function IconAdd(ID,the){
+            //菜单的值
+            $("#namePo").val("");
+            //菜单的id
+            $("#namePo").attr("dataid","");
+            //菜单的url
+            $("#url").val("");
+            //菜单的排序(升序)
+            $("#sort").val("");
+            //菜单的权限代码
+            $("#sign").val("");
+            //菜单的图标icon
+            $("#icon").val("");
+            setTimeout( function(){
+                $("#pervNav").val(title);
+                $("#pervNav").attr("dataId",ID);
+                layer.open({
+                    type: 1,
+                    title:"新增菜单",
+                    area: ['600px', '360px'],
+                    btn: ['确定', '取消'],
+                    content: $("#form_bnt"),
+                    yes:function(){
+                        var parentId,perm_name,perm_url,perm_icon,perm_type,perm_state,perm_code,sort;
+                        var pervId = $("#pervNav").attr("dataid");
+                        var datas = $("form").serialize().split("&");
+                        for (var i = 0; i < datas.length; i++) {
+                            perm_name = decodeURIComponent(datas[1].split("=")[1]);
+                            perm_url = decodeURIComponent(datas[2].split("=")[1]);
+                            sort = decodeURIComponent(datas[3].split("=")[1]);
+                            perm_code = decodeURIComponent(datas[4].split("=")[1]);
+                            perm_icon = decodeURIComponent(datas[5].split("=")[1]);
+                            //perm_type = decodeURIComponent(datas[6].split("=")[1]);
+                            perm_state = decodeURIComponent(datas[6].split("=")[1]);
+                        }
+                        if( $("#pervNav").attr("dataid") == "" || $("#pervNav").attr("dataid") == undefined||$("#pervNav").attr("dataid") == null ){
+                            parentId = $("#pervNav").attr("dataid");
+                        }else{
+                            parentId = $("#pervNav").attr("dataid");
+                        }
+                        if( perm_name == "" || perm_name == undefined || perm_name == null ){
+                            layer.msg("请输入菜单名称");
+                            return false
+                        }
+                        // if( perm_url == "" || perm_url == undefined || perm_url == null ){
+                        //     layer.msg("请输入");
+                        //     return false
+                        // }
+                        if( sort == "" || sort == undefined || sort == null ){
+                            layer.msg("请输入排序号");
+                            return false
+                        }
+                        // if( perm_icon == "" || perm_icon == undefined || perm_icon == null ){
+                        //     layer.msg("请输入图标");
+                        //     return false
+                        // }
+                        var object = new Object();
+                        if( perm_icon != "" ){
+							if( perm_icon.indexOf("&") == -1 ){
+								perm_icon = "&"+perm_icon
+							}
+                        }
+                        // object["parent_id"] = parseInt(parentId);
+                        // object["perm_name"] = perm_name;
+                        // object["perm_url"] = perm_url;
+                        // object["perm_icon"] = perm_icon;
+                        // object["perm_type"] = parseInt(perm_type);
+                        // object["perm_state"] = parseInt(perm_state);
+                        // object["perm_code"] = perm_code;
+                        // object["sort"] = parseInt(sort);
+                        $.ajax({
+                            type: "post",
+                            url:getRootPath_web()+"/perm/insert",
+                            dataType: "json",
+                            //data: object,
+                            data:JSON.stringify({
+                                parent_id:parentId,perm_name:perm_name,perm_url:perm_url,sort:sort,perm_code:perm_code,perm_icon:perm_icon,perm_type:perm_type,perm_state:perm_state
+                            }),
+                            contentType: 'application/json;charset=UTF-8',
+                            cache: false,
+                            success:function (data) {
+                                console.log(data)
+                                if(data.code==200){
+                                    layer.msg('操作成功', {icon: 1});
+                                    setTimeout( function(){
+                                        $(".layui-laypage-btn").click();
+                                        layer.closeAll();
+                                        location.reload();
+                                    },1000 )
+                                    // location.reload();
+                                }else{
+                                    layer.msg('操作失败', {icon: 2});
+                                }
+                            }
+                        });
+                    },
+                    btn2:function(){
+                        layer.closeAll();
+                    },
+                    end:function () {
+                        layer.closeAll();
+                    }
+                })
+            })
+        }
+        //列表icon点击修改
+        function IconCompile(the){
+            //var perm_icon = $(the).parent().parent().parent().children(".icon").text();
+            setTimeout( function(){
+                //上级菜单的值
+                $("#pervNav").val(Ptitle);
+                //上级菜单的id
+                $("#pervNav").attr("dataid",Pid);
+                //菜单的值
+                $("#namePo").val(title);
+                //菜单的id
+                $("#namePo").attr("dataid",ID);
+                //菜单的url
+                $("#url").val(perm_url);
+                //菜单的排序(升序)
+                $("#sort").val(sort);
+                //菜单的权限代码
+                $("#sign").val(perm_code);
+                //菜单的图标icon
+                $("#icon").val(perm_icon);
+                if( perm_type == 1 ){
+                    $("#type").children("input").prop('checked',false);
+					$("#type").children("input").eq(1).prop('checked',true);
+				}else{
+                    $("#type").children("input").eq(0).prop('checked',true);
+				}
+                if( perm_state == 1 ){
+                    $("#state").children("input").prop('checked',false);
+                    $("#state").children("input").eq(0).prop('checked',true);
+                }else{
+                    $("#state").children("input").eq(1).prop('checked',true);
+				}
+                form.render(); //更新全部
+                layer.open({
+                    type: 1,
+                    title:"编辑菜单",
+                    area: ['600px', '360px'],
+                    btn: ['确定', '取消'],
+                    content: $("#form_bnt"),
+                    yes:function(){
+                        var parentId,perm_name,perm_url,perm_icon,perm_type,perm_state,perm_code,sort,Id;
+                        var pervId = $("#pervNav").attr("dataid");
+                        var datas = $("form").serialize().split("&");
+                        for (var i = 0; i < datas.length; i++) {
+                            perm_name = decodeURIComponent(datas[1].split("=")[1]);
+                            perm_url = decodeURIComponent(datas[2].split("=")[1]);
+                            sort = decodeURIComponent(datas[3].split("=")[1]);
+                            perm_code = decodeURIComponent(datas[4].split("=")[1]);
+                            perm_icon = decodeURIComponent(datas[5].split("=")[1]);
+                            //perm_type = decodeURIComponent(datas[6].split("=")[1]);
+                            perm_state = decodeURIComponent(datas[6].split("=")[1]);
+                        };
+                        if( $("#pervNav").attr("dataid") == "" || $("#pervNav").attr("dataid") == undefined||$("#pervNav").attr("dataid") == null ){
+                            parentId = 0;
+                        }else{
+                            parentId = $("#pervNav").attr("dataid");
+                        };
+                        if( perm_name == "" || perm_name == undefined || perm_name == null ){
+                            layer.msg("请输入菜单名称");
+                            return false
+                        }
+                        // if( perm_url == "" || perm_url == undefined || perm_url == null ){
+                        //     layer.msg("请输入");
+                        //     return false
+                        // }
+                        if( sort == "" || sort == undefined || sort == null ){
+                            layer.msg("请输入排序号");
+                            return false
+                        }
+                        // if( perm_icon == "" || perm_icon == undefined || perm_icon == null ){
+                        //     layer.msg("请输入图标");
+                        //     return false
+                        // }
+                        Id = $("#namePo").attr("dataid");
+                        var object = new Object();
+                        if( perm_icon!= "" ){
+							if( perm_icon.indexOf("&") == -1 ){
+								perm_icon = "&"+perm_icon
+							}
+                        }
+                        // object["parent_id"] = parseInt(parentId);
+                        // object["perm_name"] = perm_name;
+                        // object["perm_url"] = perm_url;
+                        // object["perm_icon"] = perm_icon;
+                        // object["perm_type"] = parseInt(perm_type);
+                        // object["perm_state"] = parseInt(perm_state);
+                        // object["perm_code"] = perm_code;
+                        // object["sort"] = parseInt(sort);
+                        $.ajax({
+                            type: "put",
+                            url:getRootPath_web()+"/perm/update",
+                            dataType: "json",
+                            //data: object,
+                            data:JSON.stringify({
+                                parent_id:parentId,perm_name:perm_name,perm_id:Id,perm_url:perm_url,sort:sort,perm_code:perm_code,perm_icon:perm_icon,perm_type:perm_type,perm_state:perm_state
+                            }),
+                            contentType: 'application/json;charset=UTF-8',
+                            cache: false,
+                            success:function (data) {
+                                console.log(data)
+                                if(data.code=="200"){
+                                    layer.msg('操作成功', {icon: 1});
+                                    setTimeout( function(){
+                                        $(".layui-laypage-btn").click();
+                                        layer.closeAll();
+                                        parent.location.reload();
+                                       // window.location.reload(true);
+                                    },1000 )
+                                    // location.reload();
+                                }else{
+                                    layer.msg('操作失败', {icon: 2});
+                                }
+                            }
+                        });
+                    },
+                    btn2:function(){
+                        layer.closeAll();
+                    },
+                    end:function () {
+                        layer.closeAll();
+                    }
+                })
+            })
+        }
 	</script>
 </body>
 </html>

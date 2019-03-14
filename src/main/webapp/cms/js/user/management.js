@@ -14,10 +14,17 @@ layui.config({
             var roleId = data.role_id;
             // 展示权限树
             perms(roleId);
+            var cheLength =  $('input[name="orgIds"]:checked').length;
+            var Length =  $('input[name="orgIds"]').length;
+            if ( cheLength == Length ){
+                $("#checkAll").prop('checked', true);
+            } else {
+                $("#checkAll").prop('checked', false);
+            }
             layer.open({
                 type: 1,
                 area: ['490px', '450px'],
-                title: "用户权限",
+                title: "角色权限",
                 btn: ['确定', '取消'],
                 content: $("#dataTables-organization_wrapper"),
                 yes: function () {
@@ -25,29 +32,38 @@ layui.config({
                     $('input[name="orgIds"]:checked').each(function () {
                         chk_value.push($(this).val());
                     });
-                    if (chk_value.length == 0) {
-                        alert('你还没有选择任何内容！')
-                    } else {
-                        $.ajax({
-                            url: getRootPath_web() + "/role/perm",
-                            type: "POST",
-                            dataType: "json",
-                            data: {roleId: roleId, perms: chk_value.join(',')},
-                            success: function (data) {
-                                if (data.code === "200") {
-                                    layer.msg(data.desc);
+                    // if (chk_value.length == 0) {
+                    //     alert('你还没有选择任何内容！')
+                    // } else {
+                    //
+                    // }
+                    $.ajax({
+                        url: getRootPath_web() + "/role/perm",
+                        type: "POST",
+                        dataType: "json",
+                        data: {roleId: roleId, perms: chk_value.join(',')},
+                        success: function (data) {
+                            if (data.code === "200") {
+                                layer.msg(data.desc);
+                                setTimeout( function(){
+                                    layer.closeAll();
+                                    $("#dataTables-organization_wrapper").empty();
                                     $(".layui-laypage-btn").click();
+                                },2000 );
+                            } else {
+                                layer.msg(data.desc);
+                                setTimeout( function(){
                                     layer.closeAll();
-                                } else {
-                                    layer.msg(data.desc);
-                                    layer.closeAll();
-                                }
-                                $("#dataTables-organization_wrapper").empty();
+                                    $("#dataTables-organization_wrapper").empty();
+                                },2000 );
                             }
-                        });
-                    }
+                        }
+                    });
                 },
                 btn2: function () {
+                    $("#dataTables-organization_wrapper").empty()
+                },
+                end:function () {
                     $("#dataTables-organization_wrapper").empty()
                 }
             })
@@ -60,10 +76,12 @@ layui.config({
                     contentType: "application/json",
                     data: {},
                     success: function (data) {
-                        if (data.code === "200") {
+                        if (data.code == "200") {
                             layer.msg(data.desc);
-                            $(".layui-laypage-btn").click();
-                            layer.close(index);
+                            setTimeout( function(){
+                                layer.closeAll(); //关闭所有层
+                                $(".layui-laypage-btn").click();
+                            },1000 )
                         } else {
                             layer.msg(data.desc);
                             layer.close(index);
@@ -84,8 +102,10 @@ layui.config({
                     success: function (data) {
                         if (data.code === "200") {
                             layer.msg(data.desc);
-                            $(".layui-laypage-btn").click();
-                            layer.close(index);
+                            setTimeout( function(){
+                                layer.closeAll(); //关闭所有层
+                                $(".layui-laypage-btn").click();
+                            },1000 )
                         } else {
                             layer.msg(data.desc);
                             layer.close(index);
@@ -102,7 +122,6 @@ layui.config({
         elem: '#idTest'
         , url: getRootPath_web() + '/role/select' //数据接口
         , width: w - 12
-        , height: h - 50
         , skin: "nob"
         , cols: [[ //表头
             {title: '序号', sort: true, toolbar: '#indexTpl', fixed: 'left', width: 70}
@@ -110,6 +129,9 @@ layui.config({
             , {title: '操作', toolbar: '#barDemo', align: "center"}
         ]]
         , page: true //开启分页
+    });
+    $(".layui-table-body").css({
+        "max-height":h-130+"px"
     });
 });
 
@@ -222,7 +244,7 @@ function perms(roleId) {
      * @param  {[String]} index [行的索引]
      * @param  {[Object]} data  [json格式的行数据对象]
      */
-    // 单选，并将单选绑定到外面的td标签上。当选中的是父节点时，相应子节点执行同样的操作
+        // 单选，并将单选绑定到外面的td标签上。当选中的是父节点时，相应子节点执行同样的操作
     var chkParent = $("input[name='orgIds']").parent();
     chkParent.click(function (e) {
         var ch = $(this).find('input').prop('checked');
@@ -249,8 +271,58 @@ function perms(roleId) {
         } else {
             $("#checkAll").prop("checked", false);
         }
-    });
+        var thew = $(this);
+        var id = $(this).parent().parent().attr("id");
+        var data_pid = $(this).parent().parent().attr("data-pid");
+        var i = 0;
+        var y = 0 ;
+        var l = 0 ;
+        thew.parent().parent().parent().children("tr").each(function () {
+            var the = $(this);
+            if( the.attr("id") != undefined || the.attr("id") != null ){
+                if( the.attr("id").indexOf( id ) != -1 ){
+                    if( thew.prop('checked') == true ){
+                        thew.prop('checked',true);
+                        the.children("td:nth-child(1)").children( $("input[name='orgIds']") ).prop('checked',true);
+                    }else{
+                        thew.prop('checked',false);
+                        the.children("td:nth-child(1)").children( $("input[name='orgIds']") ).prop('checked',false);
+                    }
+                }
+            }
+            if( the.attr("data-pid") != undefined || the.attr("data-pid") != null || the.attr("data-pid") != ""){
+                if( the.attr("data-pid") == data_pid){
+                    i ++;
+                    if( the.children("td:nth-child(1)").children( $("input[name='orgIds']") ).prop('checked') == true ){
+                        y++
+                    }
+                }
+            }
+            var p = 0 ;
+            // 计算一共同级结点有多少个  console.log( i  );
+            // 计算一共同级结点选中有多少个  console.log( y );
+            if( y > 0 ){
+                $("#"+data_pid).children("td:nth-child(1)").children( $("input[name='orgIds']") ).prop('checked',true);
+                l++;
+            }else{
+                $("#"+data_pid).children("td:nth-child(1)").children( $("input[name='orgIds']") ).prop('checked',false);
+            }
+            var idPid = $("#"+data_pid).attr("data-pid");
+            if( l > 0 ){
+                $("#"+idPid).children("td:nth-child(1)").children( $("input[name='orgIds']") ).prop('checked',true);
+                p++
+            }else{
+                $("#"+idPid).children("td:nth-child(1)").children( $("input[name='orgIds']") ).prop('checked',false);
+            }
+            var pId = $("#"+idPid).attr("data-pid");
+            if( p > 0 ){
+                $("#"+pId).children("td:nth-child(1)").children( $("input[name='orgIds']") ).prop('checked',true);
+            }else{
+                $("#"+pId).children("td:nth-child(1)").children( $("input[name='orgIds']") ).prop('checked',false);
+            }
 
+        });
+    });
     // 全选，并将全选绑定到外面的td标签上
     var chkAllParent = $("#checkAll").parent();
     chkAllParent.click(function (e) {
@@ -338,34 +410,54 @@ function selectedItem() {
     }
 }
 
-//新增用户
+//新增角色
 function add() {
-    layer.prompt({title: '请输入用户名', formType: 2}, function (text, index) {
-        if( text == '' || text == undefined || text == null){
-            layer.msg('用户名不可以为空，请输入用户名！');
-            return false
-        }
-        $.ajax({
-            url: getRootPath_web() + "/role/insert",
-            type: "POST",
-            dataType: "json",
-            contentType: 'application/json;charset=UTF-8',
-            data: JSON.stringify({
-                role_name: text
-            }),
-            success: function (data) {
-                if (data === "200") {
-                    layer.msg(data.desc);
-                    $(".layui-laypage-btn").click();
-                    location.reload();
-                } else {
-                    layer.msg(data.desc);
-                    layer.closeAll(); //关闭所有层
-                }
-
+    // layer.prompt({title: '请输入角色名', formType: 2}, function (text, index) {
+    //     if( text == '' || text == undefined || text == null){
+    //         layer.msg('角色名不可以为空，请输入角色名！');
+    //         return false
+    //     }
+    // });
+    $("#role_name").val("");
+    layer.open({
+		  	type: 1,
+		  	title:"请输入角色名",
+		  	area: ['360px', '180px'],
+		 	btn: ['确定', '取消'],
+			content: $("#form_bnt"),
+		 	yes:function(){
+		  	    var text = $("#role_name").val();
+                    if( text == '' || text == undefined || text == null){
+                        layer.msg('角色名不可以为空，请输入角色名！');
+                        return false
+                    }
+                $.ajax({
+                    url: getRootPath_web() + "/role/insert",
+                    type: "POST",
+                    dataType: "json",
+                    contentType: 'application/json;charset=UTF-8',
+                    data: JSON.stringify({
+                        role_name: text
+                    }),
+                    success: function (data) {
+                        if (data.code == "200") {
+                            layer.msg(data.desc);
+                            setTimeout( function(){
+                                layer.closeAll(); //关闭所有层
+                                $(".layui-laypage-btn").click();
+                            },1000 )
+                        } else {
+                            layer.msg(data.desc);
+                        }
+                    }
+                });
+            },
+			btn2:function(){
+                layer.closeAll();
+			},
+            end:function () {
+                layer.closeAll();
             }
-        });
-    });
+		});
+
 }
-
-

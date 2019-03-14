@@ -145,60 +145,60 @@ layui.use(['form','element','layer','jquery','table'],function(){
 		//      },
 		        series : [
 		            {
-		                name: '手机丢失数',
+		               name: '手机丢失数',
 		                type: 'map',
 		                mapType: 'china',
 		                roam: false,//是否开启鼠标缩放和平移漫游
 		                itemStyle:{//地图区域的多边形 图形样式
 		                    normal:{//是图形在默认状态下的样式
 		                        label:{
-		                            show:true,//是否显示标签
+		                            show:false,//是否显示标签
 		                            textStyle: {
 		                                color: "rgb(249, 249, 249)"
 		                            }
 		                        },
 		                    },
 		                    emphasis:{//是图形在高亮状态下的样式,比如在鼠标悬浮或者图例联动高亮时
-		                        label:{show:true}
+		                        label:{show:false}
 		                    }
 		                },
 		                top:"3%",//组件距离容器的距离
-		                data:[
-		                    {name: '北京',value: Math.round(Math.random()*5000)},
-		                    {name: '天津',value: Math.round(Math.random()*5000)},
-		                    {name: '上海',value: Math.round(Math.random()*5000)},
-		                    {name: '重庆',value: Math.round(Math.random()*5000)},
-		                    {name: '河北',value: 0},
-		                    {name: '河南',value: Math.round(Math.random()*5000)},
-		                    {name: '云南',value: 5},
-		                    {name: '辽宁',value: 305},
-		                    {name: '黑龙江',value: Math.round(Math.random()*5000)},
-		                    {name: '湖南',value: 200},
-		                    {name: '安徽',value: Math.round(Math.random()*5000)},
-		                    {name: '山东',value: Math.round(Math.random()*5000)},
-		                    {name: '新疆',value: Math.round(Math.random()*5000)},
-		                    {name: '江苏',value: Math.round(Math.random()*5000)},
-		                    {name: '浙江',value: Math.round(Math.random()*5000)},
-		                    {name: '江西',value: Math.round(Math.random()*5000)},
-		                    {name: '湖北',value: Math.round(Math.random()*5000)},
-		                    {name: '广西',value: Math.round(Math.random()*5000)},
-		                    {name: '甘肃',value: Math.round(Math.random()*5000)},
-		                    {name: '山西',value: Math.round(Math.random()*5000)},
-		                    {name: '内蒙古',value: Math.round(Math.random()*5000)},
-		                    {name: '陕西',value: Math.round(Math.random()*5000)},
-		                    {name: '吉林',value: Math.round(Math.random()*5000)},
-		                    {name: '福建',value: Math.round(Math.random()*5000)},
-		                    {name: '贵州',value: Math.round(Math.random()*5000)},
-		                    {name: '广东',value: Math.round(Math.random()*5000)},
-		                    {name: '青海',value: Math.round(Math.random()*5000)},
-		                    {name: '西藏',value: Math.round(Math.random()*5000)},
-		                    {name: '四川',value: Math.round(Math.random()*5000)},
-		                    {name: '宁夏',value: Math.round(Math.random()*5000)},
-		                    {name: '海南',value: Math.round(Math.random()*5000)},
-		                    {name: '台湾',value: Math.round(Math.random()*5000)},
-		                    {name: '香港',value: Math.round(Math.random()*5000)},
-		                    {name: '澳门',value: Math.round(Math.random()*5000)}
-		                ]
+		                 data:[],
+		                //     {name: '北京',value: Math.round(Math.random()*5000)},
+		                //     {name: '天津',value: Math.round(Math.random()*5000)},
+		                //     {name: '上海',value: Math.round(Math.random()*5000)},
+		                //     {name: '重庆',value: Math.round(Math.random()*5000)},
+		                //     {name: '河北',value: 0},
+		                //     {name: '河南',value: Math.round(Math.random()*5000)},
+		                //     {name: '云南',value: 5},
+		                //     {name: '辽宁',value: 305},
+		                //     {name: '黑龙江',value: Math.round(Math.random()*5000)},
+		                //     {name: '湖南',value: 200},
+		                //     {name: '安徽',value: Math.round(Math.random()*5000)},
+		                //     {name: '山东',value: Math.round(Math.random()*5000)},
+		                //     //{name: '新疆',value: Math.round(Math.random()*5000)},
+		                //     {name: '江苏',value: Math.round(Math.random()*5000)},
+		                //     {name: '浙江',value: Math.round(Math.random()*5000)},
+		                //     {name: '江西',value: Math.round(Math.random()*5000)},
+		                //     {name: '湖北',value: Math.round(Math.random()*5000)},
+		                //     {name: '广西',value: Math.round(Math.random()*5000)},
+		                //     {name: '甘肃',value: Math.round(Math.random()*5000)},
+		                //     {name: '山西',value: Math.round(Math.random()*5000)},
+		                //     {name: '内蒙古',value: Math.round(Math.random()*5000)},
+		                //     {name: '陕西',value: Math.round(Math.random()*5000)},
+		                //     {name: '吉林',value: Math.round(Math.random()*5000)},
+		                //     {name: '福建',value: Math.round(Math.random()*5000)},
+		                //     {name: '贵州',value: Math.round(Math.random()*5000)},
+		                //     {name: '广东',value: Math.round(Math.random()*5000)},
+		                //     {name: '青海',value: Math.round(Math.random()*5000)},
+		                //     {name: '西藏',value: Math.round(Math.random()*5000)},
+		                //     {name: '四川',value: Math.round(Math.random()*5000)},
+		                //     {name: '宁夏',value: Math.round(Math.random()*5000)},
+		                //     {name: '海南',value: Math.round(Math.random()*5000)},
+		                //     {name: '台湾',value: Math.round(Math.random()*5000)},
+		                //     {name: '香港',value: Math.round(Math.random()*5000)},
+		                //     {name: '澳门',value: Math.round(Math.random()*5000)}
+		                // ]
 		            }
 		        ]
 		    };

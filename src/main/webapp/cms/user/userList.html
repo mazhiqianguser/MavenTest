@@ -18,18 +18,8 @@
     <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
-<div style="float: left;width: 200px;margin-top: 10px;margin-left: 5px;">
-    <div class="coin">
-        <!--<i class="layui-icon layui-icon-add-1 add" title="新增" ></i>-->
-        <!--<i class="layui-icon layui-icon-edit compile" title="编辑"></i>-->
-        <!--<i class="layui-icon layui-icon-delete remove" title="删除"></i>-->
-        <sapn>菜单部门</sapn>
-    </div>
-    <div class="layui-side-scroll" id="left_ul"></div>
-</div>
 <div id="admin-navbar-side" style="display: none;"></div>
-
-<div class="form_lay" style="border:none;overflow: hidden;float: right;margin: 0 5px">
+<div class="form_lay" style="border:none;overflow: hidden;margin: 0 5px">
     <div>
         <div class="leftNav">
             <p>
@@ -39,21 +29,31 @@
                 <span>用户管理</span>
             </p>
         </div>
-        <button class="layui-btn btn_rin add_uer" style="margin-right: 0px; "><i class="layui-icon layui-icon-add-1"
-                                                                                 style="font-size: 15px;padding-right: 0px;"></i>新
+        <button class="layui-btn btn_rin add_uer" style="margin-right: 0px; ">
+            <i class="layui-icon layui-icon-add-1"
+               style="font-size: 15px;padding-right: 0px;"></i>新
             增
         </button>
     </div>
 </div>
-<div class="bock" style="min-height:200px;float: right; padding-right: 0;">
-
-    <table id="idTest" lay-filter="demo"></table>
+<div style="overflow: hidden;">
+    <div style="float: left;width: 200px;margin-left: 5px;">
+        <div class="coin" style="border-right:0;">
+            <!--<i class="layui-icon layui-icon-add-1 add" title="新增" ></i>-->
+            <!--<i class="layui-icon layui-icon-edit compile" title="编辑"></i>-->
+            <!--<i class="layui-icon layui-icon-delete remove" title="删除"></i>-->
+            <sapn>部门</sapn>
+        </div>
+        <div class="layui-side-scroll" id="left_ul" style="border-right:0;"></div>
+    </div>
+    <div class="bock" style="min-height:200px;float: left; padding-right: 0;">
+        <table id="idTest" lay-filter="demo"></table>
+    </div>
 </div>
 <!-- table容器 -->
 <div id="dataTables-organization_wrapper" style="display: none;padding: 30px 20px;"></div>
-
 <form class="layui-form" action="" id="form_bnt" style="display: none;">
-    <div class="layui-form-item" style="margin-top: 30px; ">
+    <div class="layui-form-item" style="margin-top: 25px; ">
         <label class="layui-form-label">角色</label>
         <div class="layui-input-block">
             <select id="role" name="interest " lay-filter="aihao" class="layui_input">
@@ -61,13 +61,20 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">用户部门</label>
+        <div class="layui-input-block">
+            <input id="pervNav" type="text" name="user_name" lay-verify="required" autocomplete="off" class="layui-input layui_input">
+        </div>
+        <div id="dataTables-organization_wrapperO" onclick="addremov(this)" style="display: none;max-height: 200px;    overflow-x: scroll; position: absolute;z-index: 100; background: #081343;left: 108px;"></div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">用户名</label>
         <div class="layui-input-block">
             <input id="user_name" type="text" name="user_name" lay-verify="required" autocomplete="off"
-                   class="layui-input layui_input">
+                   class="layui-input layui_input" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="PassWords">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
             <input id="password" type="password" name="password" lay-verify="required" autocomplete="off"
@@ -105,8 +112,8 @@
 <script type="text/javascript" src="../layui-v2.3.0-rc1/layui/layui.js"></script>
 <script type="" src="../js/layer_windows.js"></script>
 <script type="" src="../js/user/userList.js"></script>
-<script type="" src="../js/TreeGrid/jq-treegrid.js"></script>
 <script type="" src="../js/TreeGrid/jquery-1.11.1-min.js"></script>
+<script type="" src="../js/TreeGrid/jq-treegrid.js"></script>
 <script type="text/javascript" src="../js/nav.js"></script>
 <script type="text/javascript" src="../js/common.js"></script>
 <script type="text/html" id="barDemo">
@@ -114,6 +121,8 @@
        style="margin-right: 10px;cursor: pointer;" title="权限"></i>
     <i class="layui-icon layui-icon-survey compile_form" lay-event="compile" style="margin-right: 10px;cursor: pointer;"
        title="编辑"></i>
+    <i class="layui-icon layui-icon-password" lay-event="password"
+       style="margin-right: 10px;cursor: pointer;font-size: 18px;" title="重置密码"></i>
     <i class="layui-icon layui-icon-delete" lay-event="delete"
        style="margin-right: 10px;cursor: pointer;font-size: 18px;" title="删除"></i>
 </script>
@@ -129,6 +138,216 @@
 </script>
 <script type="text/html" id="indexTpl">
     {{d.LAY_TABLE_INDEX+1}}
+</script>
+<script type="text/javascript">
+    /**
+     * [config treegrid配置项对象]
+     * @type {Object}
+     */
+    var newData;
+    $.ajax({
+        url:getRootPath_web()+"/dept/select",
+        async: false,
+        success:function(data){
+            //将一位数组改变成树状结构图
+            function treeObj(originObj){
+                //对象深拷贝
+                var obj ={};
+                for (key in originObj){
+                    var val = originObj[key];
+                    obj[key] = typeof val === 'object' ? arguments.callee(val):val;
+                }
+                //对象新增children键值，用于存放子树
+                obj['children'] = [];
+                return obj;
+            }
+            //data：带转换成树形结构的对象数组
+            //attributes：对象属性
+            function toTreeData (data, attributes) {
+                var resData = data;
+                var tree = [];
+                //找寻根节点 默认返回的parentId为空后期可以更改判断
+                for (var i = 0; i < resData.length; i++) {
+                    if ( resData[i][attributes.parentId] === ''|| resData[i][attributes.parentId] === null ||resData[i][attributes.parentId] == 0) {
+                        tree.push( treeObj(resData[i]) );
+                        resData.splice(i, 1);
+                        i--;
+                    }
+                }
+                run(tree);
+                //找寻子树
+                function run(chiArr) {
+                    if (resData.length !== 0) {
+                        for (var i = 0; i < chiArr.length; i++) {
+                            for (var j = 0; j < resData.length; j++) {
+                                if (chiArr[i][attributes.id] === resData[j][attributes.parentId]){
+                                    var obj = treeObj(resData[j]);
+                                    chiArr[i].children.push(obj);
+                                    resData.splice(j, 1);
+                                    j--;
+                                }
+                            }
+                            run(chiArr[i].children);
+                        }
+                    }
+                }
+                return tree;
+            }
+            data = data;
+            // 属性配置信息
+            var attributes = {
+                id: 'id',
+                parentId: 'parentId'
+            };
+            var treeData = toTreeData(data.data, attributes);
+            newData = treeData
+        }
+    })
+    var config = {
+        id: "datatables-organization",//table的id
+        width: "100%",
+        renderTo: "dataTables-organization_wrapperO",//渲染table的容器对象id
+        headerAlign: "left",
+        // headerHeight: "38",
+        dataAlign: "left",
+        indentation: "20",//缩进
+        folderOpenIcon: "../js/TreeGrid/img/collapse.png",//展开的图标
+        folderCloseIcon: "../js/TreeGrid/img/expand.png",//关闭的图标
+        // defaultLeafIcon: "img/branch_icon.png",//叶子节点的图标
+        hoverRowBackground: "true",//鼠标悬停是否显示背景色
+        folderColumnIndex: "1",//层次缩进
+        itemClick: "itemClickEvent",//点击一行的事件处理函数
+        columns:[//列名,表头和数据的对齐方式，宽度（可以是数值，也可以是百分比），自定义处理函数等
+            {headerText: "", headerAlign: "left", dataAlign: "left", width: "10", handler: "customCheck"},
+            {headerText: "菜单列表", dataField: "title", headerAlign: "left", handler: "customOrgName",width:""},
+        ],
+        data:newData
+    };
+    /**
+     * 展开、收起所有节点
+     */
+
+    /**
+     * [itemClickEvent 单击数据行后触发该事件]
+     * @param  {[String]} id    [行的id]
+     * @param  {[String]} index [行的索引]
+     * @param  {[Object]} data  [json格式的行数据对象]
+     */
+    function itemClickEvent(id, index, data){
+//			 jQuery("#currentRow").val(id + ", " + index + ", " + TreeGrid.jsonToStr(data));
+        console.log(id + ", " + index + ", " + TreeGrid.jsonToStr(data));
+    };
+    /**
+     * [customCheckBox 通过指定的方法来自定义栏数据]
+     * @param  {[Object]} row
+     * @param  {[Object]} col
+     */
+    function customCheck(row, col){
+        return "<sapn class='sapnVal' value="+ row.id + " style='display: none;'></sapn>";
+    };
+
+    /**
+     * [customOrgName 获取列名]
+     * @param  {[Object]} row
+     * @param  {[Object]} col
+     */
+    function customOrgName(row, col){
+        var name = row[col.dataField] || "";
+        return name;
+    };
+    /**
+     * [customLook 根据权限来显示操作控件的个数]
+     * @param  {[Object]} row [
+     * @param  {[Object]} col
+     */
+        // function customLook(row, col){
+        //     return "<input type='button' class='btn btn-info' value='查看'/>&nbsp;<input type='button' class='btn btn-warning' value='修改'/>&nbsp;<input type='button' class='btn btn-primary' value='添加子组织'/>&nbsp;<input type='button' class='btn btn-danger'value='删除'/>";
+        // };
+        //创建一个组件对象
+    var treeGrid = new TreeGrid(config);
+    treeGrid.show();
+    /**
+     * [expandAll 展开、关闭所有节点]
+     * @param  {Boolean} isOpen [isOpen=Y表示展开，isOpen=N表示关闭]
+     */
+    function expandAll(isOpen){
+        treeGrid.expandAll(isOpen);
+
+    };
+    /**
+     * [selectedItem 取得当前选中的行，方法返回TreeGridItem对象]
+     */
+    function selectedItem(){
+        var treeGridItem = treeGrid.getSelectedItem();
+        if(treeGridItem!=null){
+            //获取数据行属性值
+            //console(treeGridItem.id + ", " + treeGridItem.index + ", " + treeGridItem.data.name);
+            //获取父数据行
+            var parent = treeGridItem.getParent();
+            if( parent != null){
+                console.log(parent.data.name);
+            }
+            //获取子数据行集
+            var children = treeGridItem.getChildren();
+            if(children!= null && children.length>0){
+                console.log(children[0].data.name);
+            }
+        }
+    };
+
+    /**
+     * 展开、收起所有节点
+     */
+
+    // jQuery("#checkAll").click(function(e){
+    // 	var isChk = jQuery(this).prop("checked");
+    // 	if(isChk == true){
+    // 		expandAll('N');
+    // 	}else{
+    // 		expandAll('Y');
+    // 	}
+    // })
+    expandAll('N');
+
+    //		var html = '<div class="layui-form-item btn_two" style="margin-top: 30px; ">'
+    //				 +   '<div class="layui-input-block" style="margin-top: 15px;    margin-left: 170px;">'
+    //				 +     '<button type="reset"  class="layui-btn btn_yes" style="background: rgba(0,0,0,.0);border: 1px solid #5bc1fe;color: #5bc1fe;" > 取消 </button>'
+    //				 +     '<button type="reset" class="layui-btn layui-btn-primary close"   style="background: rgba(0,0,0,.0);border: 1px solid #fff;color: #fff;"> 保存</button>'
+    //				 +   '</div>'
+    //				+'</div>'
+    //		$("#dataTables-organization_wrapper").append( html )
+    //点击确定选择
+    //		$('body').delegate('.btn_yes', 'click',function(){
+    //			var chk_value =[];
+    //			$('input[name="orgIds"]:checked').each(function(){
+    //				chk_value.push( $(this).val() );
+    //			});
+    //			if( chk_value.length == 0  ){
+    //				alert( '你还没有选择任何内容！')
+    //			}else{
+    //				alert(chk_value);
+    //				layer.closeAll();
+    //			}
+    //
+    //		})
+    function stopPropagation(e) {
+        if (e.stopPropagation)
+            e.stopPropagation();//停止冒泡  非ie
+        else
+            e.cancelBubble = true;//停止冒泡 ie
+    }
+    $("#pervNav").on('click',function(e){
+        stopPropagation(e)
+        $("#dataTables-organization_wrapperO").show();
+    })
+    $(document).bind('click',function(){
+        $("#dataTables-organization_wrapperO").hide();
+    });
+    $("#dataTables-organization_wrapperO  td").on('click',function(e){
+        $("#dataTables-organization_wrapperO").hide();
+        $("#pervNav").val( $(this).text() );
+        $("#pervNav").attr("dataId",$(this).prev().children("sapn").attr("value") )
+    })
 </script>
 </body>
 </html>

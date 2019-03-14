@@ -9,22 +9,33 @@ layui.config({
     var h = $(window).height();
     var w = $(window).width();
     var form = layui.form;
-    var userId = 3; //从session中获取
+    var userName;
+    //取出用户信息列入用户名
+    var arrStr = document.cookie.split("; ");
+    for (var i = 0; i < arrStr.length; i++) {
+        var temp = arrStr[i].split("=");
+        if( temp[0] == "username"){
+            userName = temp[1]
+        }
+    };
     $.ajax({
-        url: getRootPath_web() + "/user/select/" + userId,
+        url: getRootPath_web() + "/user/selectInfo/",
         type: "GET",
         dataType: "json",
         contentType: 'application/json;charset=UTF-8',
-        data: {},
+        data: {
+            username:userName,
+        },
         success: function (data) {
-            if (data.code == 200) {
-                var roleId = data.roleId;
+            if (data.code == "200") {
+                var roleId = data.data.roleId;
                 if (roleId != null) {
                     role(roleId);
                 } else {
                     role(null);
                 }
                 var user = data.data.user;
+                $("#user_id").val(user.user_id);
                 $("#user_name").val(user.user_name);
                 $("#password").val(user.password);
                 $("#name").val(user.name);
@@ -69,11 +80,11 @@ layui.config({
     }
 
     //监听提交
-    form.on('submit(demo1)', function(data){
+    $(".yes_btn").on("click",function () {
         var roleId = $("#role").select().val();
-        var userId = 3; //从session中获取
         // 获取表单数据
         var data = {
+            user_id:$("#user_id").val(),
             user_name: $("#user_name").val(),
             password: $("#password").val(),
             name: $("#name").val(),
@@ -81,7 +92,7 @@ layui.config({
             email: $("#email").val()
         };
         $.ajax({
-            url:getRootPath_web() + "/user/update/" + userId + "/" + roleId,
+            url:getRootPath_web() + "/user/updateInfo/" + roleId,
             data:JSON.stringify(data),
             type:'PUT',
             cache:false,
@@ -91,7 +102,7 @@ layui.config({
                 if(result.code == "200"){
                     layer.msg(result.desc, {icon: 1},{
                         time: 2000 //20s后自动关闭
-                    })
+                    });
                     setTimeout(function(){
                         location.reload();
                     },1000);
@@ -106,6 +117,17 @@ layui.config({
             }
         });
     });
+    //用户取消编辑
+    // $(".no_btn").on("click",function () {
+    //     $(".title_ul" , parent.document).children("li").each(function () {
+    //         var the = $(this);
+    //         if( the.hasClass("layui-this") ){
+    //             // the.children("i").clcik();
+    //             //tabDelete( the.attr("lay-id") )
+    //             console.log( window.parent.tabDelete() )
+    //         }
+    //     })
+    // })
 });
 
 

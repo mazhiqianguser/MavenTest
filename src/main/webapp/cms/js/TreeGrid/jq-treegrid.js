@@ -68,14 +68,14 @@ TreeGrid = function(_config){
 				}
 
 				//节点图标
-				if(j==folderColumnIndex){
-					if(row.children){ //有下级数据
-						s += "<img data-folder='Y' data-trid='TR" + id + "' src='" + folderOpenIcon + "' class='image_hand'>";
-					}else{
-						// s += "<img src='" + defaultLeafIcon + "' class='image_nohand'>";
-					}
+				if(j == folderColumnIndex){
+					if( row.children != undefined || row.children != null){
+						if( row.children.length != 0){ //有下级数据
+							s += "<img data-folder='Y' data-trid='TR" + id + "' src='" + folderOpenIcon + "' class='image_hand'>";
+						}
+                    }
 				}
-				
+
 				//单元格内容
 				if(col.handler){
 					s += (eval(col.handler + ".call(new Object(), row, col)") || "") + "</td>";
@@ -125,8 +125,7 @@ TreeGrid = function(_config){
 			);
 		}
 		//将单击事件绑定到tr标签
-		__root.find("tr").bind("click", function(e){
-			stopPropagation(e);
+		__root.find("tr").bind("click", function(){
             var LID;
             var Ltitle;
             var LPid;
@@ -148,7 +147,7 @@ TreeGrid = function(_config){
             // $(".IconAdd").on("click",function () {
             //     alert( LID +"----" + Ltitle +"----"+LPid +"----"+LPtitle );
             // })
-			this.getSelectedItem()//当前行获取
+			//this.getSelectedItem()//当前行获取
 		});
 		//展开、关闭下级节点
 		__root.find("img[data-folder='Y']").bind("click", function(e){
@@ -186,7 +185,6 @@ TreeGrid = function(_config){
 		if(isOpen == "Y"){
 			var trs = __root.find("tr[data-pid=" + _trid + "]");
 			trs.css("display", "");
-			
 			for(var i=0;i<trs.length;i++){
 				showSubs(trs[i].id);
 			}
@@ -301,3 +299,37 @@ function TreeGridItem (_root, _rowId, _rowIndex, _rowData){
 		return arr;
 	}
 };
+    $("input[name='orgIds']").unbind("click").click(function () {
+        var thew = $(this);
+        var id = $(this).parent().parent().attr("id");
+        var data_pid = $(this).parent().parent().attr("data-pid");
+        var i = 0;
+        var y = 0 ;
+        thew.parent().parent().parent().children("tr").each(function () {
+            var the = $(this);
+            if( the.attr("id") != undefined || the.attr("id") != null ){
+                if( the.attr("id").indexOf( id ) != -1 ){
+                    if( thew.prop('checked') == true ){
+                        thew.prop('checked',true);
+                        the.children("td:nth-child(1)").children( $("input[name='orgIds']") ).prop('checked',true);
+                    }else{
+                        thew.prop('checked',false);
+                        the.children("td:nth-child(1)").children( $("input[name='orgIds']") ).prop('checked',false);
+                    }
+                }
+            }
+            if( the.attr("data-pid") != undefined || the.attr("data-pid") != null || the.attr("data-pid") != ""){
+                if( the.attr("data-pid") == data_pid){
+                    i ++;
+                    if( the.children("td:nth-child(1)").children( $("input[name='orgIds']") ).prop('checked') == true ){
+                        y++
+                    }
+                }
+            }
+            if( i == y ){
+                $("#"+data_pid).children("td:nth-child(1)").children( $("input[name='orgIds']") ).prop('checked',true);
+            }else{
+                $("#"+data_pid).children("td:nth-child(1)").children( $("input[name='orgIds']") ).prop('checked',false);
+            }
+        });
+    });

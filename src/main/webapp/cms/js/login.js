@@ -14,7 +14,7 @@ layui.use(['element','layer','form','laydate'], function(){
             if ( data.code == 200) {
                 var str = '';
                 var str1 = '';
-                $("#title").text( data.data.project_name);
+                $("#login_title").text( data.data.project_name);
                 document.title = data.data.project_name;
             }
         }

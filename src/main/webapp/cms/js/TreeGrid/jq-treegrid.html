@@ -1,4 +1,4 @@
-2<html>
+<html>
 <head>
 <title>JQuery-TreeGrid</title>
 	<meta charset="UTF-8">
@@ -156,14 +156,14 @@
 		 * 展开、收起所有节点
 		 */
 
-		// jQuery("#checkAll").click(function(e){
-		// 	var isChk = jQuery(this).prop("checked");
-		// 	if(isChk == true){
-		// 		expandAll('N');
-		// 	}else{
-		// 		expandAll('Y');
-		// 	}
-		// })
+		jQuery("#checkAll").click(function(e){
+			var isChk = jQuery(this).prop("checked");
+			if(isChk == true){
+				expandAll('N');
+			}else{
+				expandAll('Y');
+			}
+		})
 		
 		// 单选，并将单选绑定到外面的td标签上。当选中的是父节点时，相应子节点执行同样的操作
 		var chkParent = $("input[name='orgIds']").parent();

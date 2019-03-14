@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/util 
+    http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<description>Jedis Configuration</description>
+
+	<!-- redis 单机连接方案 -->
+	<!-- <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		最大能够保持idel状态的对象数
+		<property name="maxIdle" value="${redis_single_maxIdle}" />
+		最大分配的对象数
+		<property name="maxTotal" value="${redis_single_maxTotal}" />
+		每次释放连接的最大数目
+		<property name="numTestsPerEvictionRun" value="${redis_single_numTestsPerEvictionRun}" />
+		释放连接的扫描间隔（毫秒）
+		<property name="timeBetweenEvictionRunsMillis" value="${redis_single_timeBetweenEvictionRunsMillis}" />
+		连接最小空闲时间
+		<property name="minEvictableIdleTimeMillis" value="${redis_single_minEvictableIdleTimeMillis}" />
+		连接空闲多久后释放, 当空闲时间>该值 且 空闲连接>最大空闲连接数 时直接释放
+		<property name="softMinEvictableIdleTimeMillis" value="${redis_single_softMinEvictableIdleTimeMillis}" />
+		获取连接时的最大等待毫秒数,小于零:阻塞不确定的时间,默认-1
+		<property name="maxWaitMillis" value="${redis_single_maxWaitMillis}" />
+		当调用borrow Object方法时，是否进行有效性检查
+		<property name="testOnBorrow" value="${redis_single_testOnBorrow}" />
+		在空闲时检查有效性, 默认false
+		<property name="testWhileIdle" value="${redis_single_testWhileIdle}" />
+		连接耗尽时是否阻塞, false报异常,ture阻塞直到超时, 默认true
+		<property name="blockWhenExhausted" value="${redis_single_blockWhenExhausted}" />
+	</bean> -->
+	<!-- <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="jedisPoolConfig" />
+		<constructor-arg index="1" value="${redis_single_host}" />
+		<constructor-arg index="2" value="${redis_single_port}" type="int" />
+	</bean> -->
+	<!-- <bean id="jedisSingleClient" class="cn.com.cintel.cin.redis.impl.JedisSingleClient">
+		<property name="jedisPool" ref="jedisPool"></property>
+	</bean> -->
+
+	<!-- redis 集群连接方案 -->
+	<bean name="genericObjectPoolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig" >
+		<property name="maxWaitMillis" value="${redis_cluster_maxWaitMillis}" />
+		<property name="maxTotal" value="${redis_cluster_maxTotal}" />
+		<property name="minIdle" value="${redis_cluster_minIdle}" />
+		<property name="maxIdle" value="${redis_cluster_maxIdle}" />
+	</bean>
+	<bean id="jedisCluster" class="cn.com.cintel.cin.redis.JedisClusterFactory">
+		<property name="connectionTimeout" value="${redis_cluster_connectionTimeout}" />
+		<property name="soTimeout" value="${redis_cluster_soTimeout}" />
+		<property name="maxRedirections" value="${redis_cluster_maxRedirections}" />
+		<property name="genericObjectPoolConfig" ref="genericObjectPoolConfig" />
+		<property name="jedisClusterNodes" value="${redis_cluster_host_port}" />
+	</bean>
+	
+	<bean id="jedisClusterClient" class="cn.com.cintel.cin.redis.impl.JedisClusterClient">
+		<property name="jedisCluster" ref="jedisCluster"></property>
+	</bean>
+	<!-- 真正的redis操作类，具体连接方式由jedisClient的ref属性决定 可选项为jedisClusterClient、jedisClient -->
+	<bean id="jedisClient" class="cn.com.cintel.cin.redis.JedisClient">
+		<property name="jedisClient" ref="jedisClusterClient" />
+	</bean>
+</beans>

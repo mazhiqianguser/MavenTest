@@ -192,7 +192,7 @@ layui.define(['element', 'common'], function (exports) {
 	 */
     function getHtml(data) {
     	data = data
-        console.log(data)
+        // console.log(data)
         //debugger;
         var ulHtml = '<ul class="layui-nav layui-nav-tree back_blue_a beg-navbar ul_top" id="one_ul">';
         var ulhtml1 = '';
@@ -342,10 +342,15 @@ layui.define(['element', 'common'], function (exports) {
             left_ul += '</li>';
         }
         ulHtml += '</ul>';
-        console.log(left_ul)
-        $("#admin-navbar-side1").append( ulhtml1 )
-        $("#admin-navbar-side2").append( ulhtml2 )
-         $("#left_ul").append( left_ul )
+        $("#admin-navbar-side1").append( ulhtml1 );
+        $("#admin-navbar-side2").append( ulhtml2 );
+         $("#left_ul").append( left_ul );
+        $("#admin-navbar-side1 > ul > li").each(function(){
+            $(this).parent().attr("parentid",$(this).attr("parentid"));
+        });
+        $("#admin-navbar-side2 > ul > li").each(function(){
+            $(this).parent().attr("parentid",$(this).attr("parentid"));
+        });
         return ulHtml;
 
 

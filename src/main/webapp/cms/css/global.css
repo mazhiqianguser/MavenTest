@@ -173,7 +173,7 @@ body .layui-layer-dir .layui-layer-content{padding: 10px; max-height: 280px; ove
 /* 演示 */
 body .layui-layout-admin .site-demo{bottom: 82px; padding: 0;z-index:-1;}
 body .site-demo-nav .layui-nav-item{line-height: 40px}
-.layui-nav-item .layui-icon{position: relative; /*font-size: 20px;*/}
+.layui-nav-item .layui-icon{position: relative; font-size: 17px;}
 .layui-nav-item a cite{padding: 0 10px;}
 .site-demo .layui-main{margin: 15px; line-height: 22px;}
 .site-demo-editor{position: absolute; top: 0; bottom: 0; left: 0; width: 50%; }
@@ -275,9 +275,9 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 	border: 0;
 	height: 100%;
 }
-.admin-nav-card>.layui-tab-title{
+/*.admin-nav-card>.layui-tab-title{
 	border-bottom: 1px solid #1AA094;
-}
+}*/
 .admin-nav-card .layui-tab-title cite{
 	font-style: normal;
 	padding-left: 5px;

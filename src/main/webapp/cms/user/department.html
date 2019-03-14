@@ -17,6 +17,12 @@
 	<link rel="stylesheet" href="../css/global.css" media="all">
 	<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../js/TreeGrid/jq-treegrid.css"/>
+	<style>
+		.layui_inpuW{
+			width: 275px;
+		}
+		body .layui-layer-setmybg .layui-layer-content{background-color:  #c00; color: #fff;}
+	</style>
 </head>
 <body >
 <!--<div style="text-align: center;">
@@ -36,8 +42,8 @@
 			</p>
 		</div>
 		<button class="layui-btn btn_rin Remove" style="margin-left: 10px; "><i class="layui-icon layui-icon-delete" style="font-size: 15px;padding-right: 0px;"></i>删除</button>
-		<button class="layui-btn btn_rin fold" style="margin-right: 0px; "><i class="layui-icon layui-icon-up" style="font-size: 15px;padding-right: 0px;"></i>折叠</button>
-		<button class="layui-btn btn_rin unfold" style="margin-right: 0px; "><i class="layui-icon layui-icon-down" style="font-size: 15px;padding-right: 0px;"></i>展开</button>
+		<!--<button class="layui-btn btn_rin fold" style="margin-right: 0px; "><i class="layui-icon layui-icon-up" style="font-size: 15px;padding-right: 0px;"></i>折叠</button>-->
+		<button class="layui-btn btn_rin unfold" style="margin-right: 0px; "><i class="layui-icon layui-icon-down" style="font-size: 15px;padding-right: 0px;"></i><sapn class="unzk">展开</sapn></button>
 		<button class="layui-btn btn_rin add_uer" style="margin-right: 0px; "><i class="layui-icon layui-icon-add-1" style="font-size: 15px;padding-right: 0px;"></i>新增</button>
 	</div>
 </div>
@@ -53,10 +59,10 @@
 		<div class="layui-form-item formItem" style="margin-top:40px;  ">
 			<label class="layui-form-label">上级部门</label>
 			<div class="layui-input-block">
-				<input  name="title" lay-verify="title" autocomplete="off"  class="layui-input layui_input layui_inpuW" id="pervNav"  placeholder="如不选择上级部门则默认此输入菜单为一级部门">
+				<input  name="title" lay-verify="title" autocomplete="off"  class="layui-input layui_input layui_inpuW" id="pervNav"  placeholder="如不选择上级部门则默认输入的部门为一级部门">
 			</div>
-			<div style="max-height: 200px;    overflow-x: scroll; position: absolute;z-index: 100; background: #081343;left: 108px;">
-				<div id="dataTables-organization_wrapperO" style="display: none;"></div>
+			<div style="display:none;max-height: 200px;     position: absolute;z-index: 100; background: #081343;left: 108px;">
+				<div id="dataTables-organization_wrapperO" ></div>
 			</div>
 		</div>
 		<div class="layui-form-item formItem" style="margin-top:40px">
@@ -65,6 +71,12 @@
 				<input  type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input layui_input layui_inpuW" id="namePo" >
 			</div>
 		</div>
+        <div class="layui-form-item formItem" style="margin-top:40px">
+            <label class="layui-form-label">部门编号</label>
+            <div class="layui-input-block">
+                <input  type="text" id="dept_code" name="dept_code" lay-verify="required" autocomplete="off" class="layui-input layui_input layui_inpuW"  >
+            </div>
+        </div>
 		<!--<div class="layui-form-item layui-form-text">
           <label class="layui-form-label">编辑器</label>
           <div class="layui-input-block">
@@ -93,8 +105,8 @@
 	<script type="text/html" id="indexTpl">
 		{{d.LAY_TABLE_INDEX+1}}
 	</script>
-	<script type="" src="../js/TreeGrid/jq-treegrid.js"></script>
 	<script type="" src="../js/TreeGrid/jquery-1.11.1-min.js"></script>
+	<script type="" src="../js/TreeGrid/jq-treegrid.js"></script>
 	<script type="text/javascript">
         /**
          * [config treegrid配置项对象]
@@ -300,11 +312,13 @@
                 e.cancelBubble = true;//停止冒泡 ie
         }
         $("#pervNav").on('click',function(e){
-            stopPropagation(e)
+            stopPropagation(e);
             $("#dataTables-organization_wrapperO").show();
-        })
+            $("#dataTables-organization_wrapperO").parent().show();
+        });
         $(document).bind('click',function(){
             $("#dataTables-organization_wrapperO").hide();
+            $("#dataTables-organization_wrapperO").parent().hide();
         });
         $("#dataTables-organization_wrapperO  td").on('click',function(e){
             $("#dataTables-organization_wrapperO").hide();
@@ -320,6 +334,7 @@
         var Data;
         var ID;
         var title;
+        var deptCode;
         var Pid;
         var Ptitle;
         $.ajax({
@@ -394,13 +409,15 @@
             hoverRowBackground: "true",//鼠标悬停是否显示背景色
             folderColumnIndex: "1",//层次缩进
             itemClick: "selectedItem",//点击一行的事件处理函数
+
             columns:[//列名,表头和数据的对齐方式，宽度（可以是数值，也可以是百分比），自定义处理函数等
                 {headerText: "<input type='checkbox' id='checkAll'/ >", headerAlign: "left", dataAlign: "left", width: "10", handler: "customCheckBox"},
 //					{headerText: "全选", dataField: "title", headerAlign: "left", handler: "customOrgName",width:""},
                 {headerText: "部门名称", dataField: "title", headerAlign: "left", handler: "customOrgName",width:""},
+                {headerText: "部门编号", dataField: "deptCode", headerAlign: "left", handler: "codeName",width:""},
                 /*{headerText: "序号", dataField: "id", headerAlign: "left", handler: "inputP",width:""},*/
                 {headerText: "创建时间", dataField: "create_time", headerAlign: "left", handler: "",width:""},
-                {headerText: "结束时间", dataField: "icon",  headerAlign: "left", handler: "icon",width:""},
+                //{headerText: "结束时间", dataField: "icon",  headerAlign: "left", handler: "icon",width:""},
                 // {headerText: "类型", dataField: "path", headerAlign: "left", handler: "",width:""},
                 // {headerText: "可见",  headerAlign: "left", handler: "block",width:""},
                 // {headerText: "标识", dataField: "pid", headerAlign: "left", handler: "",width:""},
@@ -431,7 +448,6 @@
         function customCheckBox(row, col){
             return "<input type='checkbox' name='orgIds' value="+ row.id + ">";
         };
-
         /**
          * [customOrgName 获取列名]
          * @param  {[Object]} row
@@ -440,6 +456,13 @@
         function customOrgName(row, col){
             var name = row[col.dataField] || "";
             return name;
+        };
+        function codeName(row, col){
+           if( row.deptCode == '' || row.deptCode == null || row.deptCode == undefined ){
+               return "";
+		   }else{
+               return row.deptCode;
+		   }
         };
         function inputP(row,col){
             return "<input type='text' value="+ row.pid +" class='layui-input Input' onblur='Inputblur(this)'>";
@@ -485,15 +508,17 @@
                 //获取父数据行
                 var parent = treeGridItem.getParent();
                 if( parent != null){
-                    //console.log(parent.data.name);
+                    // console.log(parent.data);
                     //AddcoRmove(treeGridItem.data.id,treeGridItem.data.title,parent.data.id,parent.data.title);
                     ID = treeGridItem.data.id;
                     title = treeGridItem.data.title;
                     Pid = parent.data.id;
                     Ptitle = parent.data.title;
+                    deptCode = treeGridItem.data.deptCode;
                 }else{
                     ID = treeGridItem.data.id;
                     title = treeGridItem.data.title;
+                    deptCode = treeGridItem.data.deptCode;
                     Pid = "";
                     Ptitle = "";
                 }
@@ -520,32 +545,32 @@
         expandAll('N');
         // 单选，并将单选绑定到外面的td标签上。当选中的是父节点时，相应子节点执行同样的操作
         var chkParent = $("input[name='orgIds']").parent();
-        chkParent.click(function(e){
-            var ch = $(this).find('input').prop('checked');
-            if(ch == false){
-                $(this).find('input').prop('checked',true);
-                if($("input[name='orgIds']").length == $("input[name='orgIds']:checked").length){
-                    $("#checkAll").prop('checked',true);
-                }else{
-                    $("#checkAll").prop('checked',false);
-                }
-            }else{
-                $(this).find('input').prop('checked',false);
-                if($("input[name='orgIds']").length == $("input[name='orgIds']:checked").length){
-                    $("#checkAllt").prop('checked',true);
-                }else{
-                    $("#checkAll").prop('checked',false);
-                }
-            }
-        });
-        $("input[name='orgIds']").click(function(e){
-            e.stopPropagation();
-            if($("input[name='orgIds']").length == $("input[name='orgIds']:checked").length){
-                $("#checkAll").prop("checked",true);
-            }else{
-                $("#checkAll").prop("checked",false);
-            }
-        });
+        // chkParent.click(function(e){
+        //     var ch = $(this).find('input').prop('checked');
+        //     if(ch == false){
+        //         $(this).find('input').prop('checked',true);
+        //         if($("input[name='orgIds']").length == $("input[name='orgIds']:checked").length){
+        //             $("#checkAll").prop('checked',true);
+        //         }else{
+        //             $("#checkAll").prop('checked',false);
+        //         }
+        //     }else{
+        //         $(this).find('input').prop('checked',false);
+        //         if($("input[name='orgIds']").length == $("input[name='orgIds']:checked").length){
+        //             $("#checkAllt").prop('checked',true);
+        //         }else{
+        //             $("#checkAll").prop('checked',false);
+        //         }
+        //     }
+        // });
+        // $("input[name='orgIds']").click(function(e){
+        //     e.stopPropagation();
+        //     if($("input[name='orgIds']").length == $("input[name='orgIds']:checked").length){
+        //         $("#checkAll").prop("checked",true);
+        //     }else{
+        //         $("#checkAll").prop("checked",false);
+        //     }
+        // });
 
 
         // 全选，并将全选绑定到外面的td标签上
@@ -604,24 +629,27 @@
                             type:'post',
                             data:JSON.stringify({
                                 parent_id:$("#pervNav").attr("dataId"),
-                                dept_name:$("#namePo").val()
+                                dept_name:$("#namePo").val(),
+                                dept_code:$("#dept_code").val()
                             }),
                             cache:false,
                             dataType:'json',
                             contentType: 'application/json;charset=UTF-8',
                             success:function(result) {
-                                if(result.code == "200"){
-                                    layer.msg('操作成功', {icon: 1});
-                                    location.reload();
+                                if(result.code ==200){
+                                    layer.msg(result.desc, {icon: 1});
+                                    setTimeout( function () {
+                                        $(".layui-laypage-btn").click();
+                                        location.reload();
+                                    },1000);
                                 }else{
-                                    layer.msg('操作失败', {icon: 2});
+                                    layer.msg(result.desc, {icon: 2});
                                 }
                             },
                             error : function() {
                                 layer.msg("服务器异常");
                             }
                         });
-                        layer.closeAll(); //关闭所有层
                     },
                     btn2:function(){
                         $("#pervNav").val("");
@@ -639,6 +667,7 @@
             setTimeout( function(){
                 var namePo = $("#namePo").val(title);
                 var pervNav = $("#pervNav").val(Ptitle);
+                var pervNav = $("#dept_code").val(deptCode);
                 var pervNavId = $("#pervNav").attr("dataId",Pid);
                 $("#pervNav").attr("disabled",true);
                 layer.open({
@@ -654,17 +683,21 @@
                             type:'put',
                             data:JSON.stringify({
                                 parent_id:$("#pervNav").attr("dataId"), //上级部门id
-                                dept_name:$("#namePo").val()
+                                dept_name:$("#namePo").val(),
+                                dept_code:$("#dept_code").val()
                             }),
                             cache:false,
                             dataType:'json',
                             contentType: 'application/json;charset=UTF-8',
                             success:function(result) {
-                                if(result.code == "200"){
-                                    layer.msg('操作成功', {icon: 1});
-                                    location.reload();
+                                if(result.code ==200){
+                                    layer.msg(result.desc, {icon: 1});
+                                    setTimeout( function () {
+                                        $(".layui-laypage-btn").click();
+                                        location.reload();
+                                    },1000);
                                 }else{
-                                    layer.msg('操作失败', {icon: 2});
+                                    layer.msg(result.desc, {icon: 2});
                                 }
                             },
                             error : function() {
@@ -684,8 +717,6 @@
                 })
             })
         })
-
-
 	</script>
     <script type="" src="../js/user/department.js"></script>
 </body>

@@ -39,16 +39,32 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">用户名：</label>
                         <div class="layui-input-inline"  style="width: 100px;">
-                            <input name="zjhm" type="text" autocomplete="off"  class="layui-input layui_inputO" >
+                            <input name="login_name" type="text" autocomplete="off"  class="layui-input layui_inputO" >
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">姓名：</label>
+                        <label class="layui-form-label">手机号：</label>
                         <div class="layui-input-inline"  style="width: 100px;">
-                            <input name="zjhm" type="text" autocomplete="off"  class="layui-input layui_inputO">
+                            <input name="phone" type="text" autocomplete="off"  class="layui-input layui_inputO">
                         </div>
                     </div>
-                    <div class="layui-inline">
+                    <!--<div class="layui-inline">-->
+                        <!--<label  class="layui-form-label">操作类型：</label>-->
+                        <!--<div class="layui-input-inline" style="width: 150px;">-->
+                            <!--<select name="operate_type">-->
+                                <!--<option value="">默认全选</option>-->
+                                <!--<option value="1">添加</option>-->
+                                <!--<option value="2">删除</option>-->
+                                <!--<option value="3">修改</option>-->
+                                <!--<option value="4">添加权限</option>-->
+                                <!--<option value="5">隐藏/显示</option>-->
+                                <!--<option value="6">个人信息</option>-->
+                                <!--<option value="7">修改密码</option>-->
+                                <!--<option value="8">重置密码</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="layui-inline">
                         <label class="layui-form-label" style="margin-top: 5px;">部门：</label>
                         <div class="layui-input-block" style="margin-left:0px;margin-top: 5px;width: 100px;    float: left;">
                             <select name="interest " lay-filter="aihao" class="layui_input">
@@ -73,11 +89,17 @@
                                 <option value="4">五级管理员</option>
                             </select>
                         </div>
+                    </div>-->
+                    <div class="layui-inline">
+                        <label class="layui-form-label">操作开始时间：</label>
+                        <div class="layui-input-inline time-input-inline " style="  width: 120px;">
+                            <input  name="start_time" type="text" autocomplete="off"  class="layui-input layui_inputO" id="start_time" >
+                        </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">起止时间：</label>
-                        <div class="layui-input-inline time-input-inline ">
-                            <input  name="qzsj" type="text" autocomplete="off"  class="layui-input layui_inputO" id="range-time">
+                        <label class="layui-form-label">操作结束时间：</label>
+                        <div class="layui-input-inline time-input-inline " style="  width: 120px;">
+                            <input  name="end_time" type="text" autocomplete="off"  class="layui-input layui_inputO" id="end_time">
                         </div>
                     </div>
                 </div>
@@ -87,7 +109,7 @@
                             <!--<i class="layui-icon layui-icon-search"></i>!-->
                             重置
                         </button>
-                        <button  type="button" class="layui-btn btn_rin search-btn" lay-submit lay-filter="sousuo" style="margin:0;line-height: 25px;margin-right: 10px;">
+                        <button  id="searchBtn" type="button" class="layui-btn btn_rin search-btn" lay-submit lay-filter="searchBtn" style="margin:0;line-height: 25px;margin-right: 10px;" >
                             <!--<i class="layui-icon layui-icon-search"></i>!-->
                             查询
                         </button>
@@ -108,5 +130,33 @@
 <script type="text/javascript" src="../layui-v2.3.0-rc1/layui/layui.js"></script>
 <script type="" src="../js/layer_windows.js"></script>
 <script type="" src="../js/personalCenter/operationLog.js"></script>
+<script type="text/html" id="control">
+    {{#
+    if( d.operate_type == 1 ){ }}
+    <sapn>添加</sapn>
+    {{# }
+    if( d.operate_type == 2 ){ }}
+    <sapn>删除</sapn>
+    {{# }
+    if( d.operate_type == 3 ){ }}
+    <sapn>修改</sapn>
+    {{# }
+    if( d.operate_type == 4 ){ }}
+    <sapn>添加权限</sapn>
+    {{# }
+    if( d.operate_type == 5 ){ }}
+    <sapn>隐藏/显示</sapn>
+    {{# }
+    if( d.operate_type == 6 ){ }}
+    <sapn>个人信息</sapn>
+    {{# }
+    if( d.operate_type == 7 ){ }}
+    <sapn>修改密码</sapn>
+    {{# }
+    if( d.operate_type == 8 ){ }}
+    <sapn>重置密码</sapn>
+    {{# }
+    }}
+</script>
 </body>
 </html>

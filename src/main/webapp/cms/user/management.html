@@ -43,13 +43,20 @@
 </div>
 <!-- table容器 -->
 <div id="dataTables-organization_wrapper" style="display: none;padding: 30px 20px;">
-
 </div>
+<form class="layui-form" action="" id="form_bnt" style="display: none;">
+	<div class="layui-form-item formItem" style="margin-top:20px">
+		<label class="layui-form-label">角色名称</label>
+		<div class="layui-input-block">
+			<input  style="width: 220px;" type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input layui_input layui_inpuW" id="role_name" >
+		</div>
+	</div>
+</form>
 <script type="text/javascript" src="../layui-v2.3.0-rc1/layui/layui.js"></script>
 <script type="" src="../js/layer_windows.js"></script>
 <script type="" src="../js/user/management.js"></script>
-<script type="" src="../js/TreeGrid/jq-treegrid.js"></script>
 <script type="" src="../js/TreeGrid/jquery-1.11.1-min.js"></script>
+<script type="" src="../js/TreeGrid/jq-treegrid.js"></script>
 <script type="text/javascript" src="../js/common.js"></script>
 <script type="text/html" id="barDemo">
 	<i class="layui-icon layui-icon-user jurisdiction"  lay-event="jurisdiction" style="margin-right: 10px;cursor: pointer;" title="权限"></i>

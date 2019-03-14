@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+     http://www.springframework.org/schema/mvc 
+     http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+     http://www.springframework.org/schema/aop 
+     http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+	<mvc:annotation-driven/>
+
+	<!-- 扫描组件 -->
+	<context:component-scan base-package="cn.com.test.**.controller" />
+	
+	<!-- 参数配置 -->
+	<context:property-placeholder location="classpath:properties/*.properties" file-encoding="UTF-8"/>
+
+	<!-- 静态资源 解析 -->
+	<mvc:resources location="/cms/" mapping="/cms/**" />
+
+	<!-- 地址映射 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJackson2HttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+	<bean id="mappingJackson2HttpMessageConverter"
+		  class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+				<value>text/json;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 定义文件上传解析器 -->
+	<!-- <mvc:default-servlet-handler/>默认servlet，不走静态资源，代替静态资源访问 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设定默认编码 -->
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<!-- 设定文件上传的最大值5MB，5*1024*1024 -->
+		<property name="maxUploadSize" value="524288000"></property>
+	</bean>
+
+	<!-- 启动对@AspectJ注解的支持 -->
+    <aop:aspectj-autoproxy/>
+    <!--通知spring使用cglib而不是jdk的来生成代理方法 AOP可以拦截到Controller-->
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<mvc:default-servlet-handler/>
+	<!-- 拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/cms/login.html"/>
+			<mvc:exclude-mapping path="/getGifCode"/>
+			<mvc:exclude-mapping path="/login"/>
+			<mvc:exclude-mapping path="/cms/style/**"/>
+			<mvc:exclude-mapping path="/cms/css/**"/>
+			<mvc:exclude-mapping path="/cms/images/**"/>
+			<mvc:exclude-mapping path="/cms/layui-v2.3.0-rc1/**"/>
+			<mvc:exclude-mapping path="/cms/data/**"/>
+			<mvc:exclude-mapping path="/cms/js/**"/>
+			<mvc:exclude-mapping path="/cms/plugins/**"/>
+			<bean class="cn.com.test.user.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+</beans>

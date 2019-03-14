@@ -17,7 +17,7 @@ layui.define(['element', 'common'], function (exports) {
         };
     var ELEM = {};
     //版本号
-    Tab.prototype.v = '0.1.6';
+    // Tab.prototype.v = '0.1.6';
 	/**
 	 * 参数设置
 	 * @param {Object} options
